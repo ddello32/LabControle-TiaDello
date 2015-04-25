@@ -1,0 +1,305 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[pdftex]{hyperref}
+\usepackage{epstopdf}
+\usepackage{etoolbox}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{setspace}
+\usepackage{tikz}
+
+\patchcmd{\thebibliography}{\section*}{\section}{}{}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Prob}{\ensuremath{\mathbb{P}}}
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\U}{\ensuremath{\mathbb{U}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Lg}{\ensuremath{\mathbb{L}}}
+\newcommand{\T}{\ensuremath{\rm Tr}}
+\newcommand{\sg}{{\sigma(x_k)}}
+
+\newcommand{\G}{\ensuremath{\mathcal{G}}}
+\newcommand{\F}{\ensuremath{\mathcal{F}}}
+\newcommand{\C}{\ensuremath{\mathcal{C}}}
+\newcommand{\E}{\ensuremath{\mathcal{E}}}
+\newcommand{\Hn}{\ensuremath{\mathcal{H}}}
+%\newcommand{\Hoo}{\ensuremath{\mathcal{H}_\infty}}
+\newcommand{\Hop}{\ensuremath{\mathcal{H}_{op}}}
+% --------------------------------------------------
+\newtheorem{theo}{Teorema}
+\newtheorem{exa}{Exemplo}
+\newtheorem{lemm}{Lema}
+\newtheorem{coro}{Corolário}
+\newtheorem{defn}{Definição}[section]
+
+%opening
+
+
+\begin{document}
+\input{capa.tex}
+
+\onehalfspacing
+\section{Objetivos} 
+O objetivo desse experimento é projetar via realização em espaço de estado um controlador e um observador de estado para a planta eletrônica identificada no experimento 2\cite{bb:lab2}. 
+	
+\section{Projeto do Controlador}
+Consideramos a planta cuja função de transferência representada pela equação \ref{eq:gs} que foi obtida usando as medidas realizadas durante o experimento 2\cite{bb:lab2} para o projeto do controlador em espaço de estado conforme a figura \ref{fig:contrss}. A representação da planta em espaço de estado é mostrada em \ref{eq:ssxdot} e \ref{eq:ssy}, com as matrizes $A$, $B$ e $C$ indicadas em \ref{eq:mata}, 
+\ref{eq:matb}, \ref{eq:matc}.\\
+
+\begin{table}[H]
+	\centering
+	\caption{Parâmetros numéricos da função de transferência}
+	\label{tab:valores}
+	\begin{tabular}{|c|c|}
+		\hline Parâmetro & Valor \\ 
+		\hline $\kappa_1$ & $-0.1005$\\ 
+		\hline $\kappa_2$ & $-2.1508$\\ 
+		\hline $\kappa_3$ & $-4.6448$\\ 
+		\hline $\kappa_4$ & $-5.6307$\\ 
+		\hline $\tau_2$ & $0.0210$\\ 
+		\hline $\tau_3$ & $0.0244$ \\ 	
+		\hline 
+	\end{tabular} 
+\end{table}
+
+\begin{equation}
+\label{eq:gs}
+G(s) = \frac{\kappa_1\kappa_2\kappa_3\kappa_4}{(s\tau_2 + 1)(s\tau_3 + 1)s}
+\end{equation}
+\begin{equation}
+\label{eq:ssxdot}
+\dot{x}=Ax+Bu
+\end{equation}
+\begin{equation}
+\label{eq:ssy}
+y=Cx
+\end{equation}
+\begin{equation}
+\label{eq:mata}
+A=
+\begin{bmatrix}
+ 0 & 1 & 0 \\
+ 0 & 0 & 1 \\
+ 0 & -\frac{1}{\tau_2\tau_3} & -\frac{\tau_2+\tau_3}{\tau_2\tau_3}
+\end{bmatrix}
+\end{equation}
+\begin{equation}
+\label{eq:matb}
+B=
+\begin{bmatrix}
+0 \\
+0 \\
+\frac{\kappa_1\kappa_2\kappa_3\kappa_4}{\tau_2\tau_3}
+\end{bmatrix}
+\end{equation}
+\begin{equation}
+\label{eq:matc}
+C=
+\begin{bmatrix}
+1 & 0 & 0
+\end{bmatrix}
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{contrss}
+	\caption{Diagrama de blocos do sistema}
+	\label{fig:contrss}
+\end{figure}
+
+\subsection{Requisitos do Sistema e Projeto}
+Seguindo o proposto no roteiro \cite{bb:roteiro} as especificações do sistema são:
+\begin{itemize}
+	\item Tempo de estabilização de aproximadamente $0.5$ [s].
+	\item Fator de amortecimento igual a $\sqrt{2}/2$.
+	\item Polo em $s=-30$.
+	\item Erro em regime permanente nulo a uma entrada rampa.
+	\item Amplitude do sinal de controle não pode ultrapassar $\pm10$ [Volts].
+\end{itemize}\
+%TODO:
+% Projeto dos ganhos: K, L, M
+% Simulink: y(t) e u(t) para degrau e rampa
+
+Utilizando a metodologia indicada no roteiro\cite{bb:roteiro}, iniciamos o cumprimento dos três primeiros requisitos considerando as raízes obtidas como sendo:
+\begin{equation}
+	s_1=-30
+\end{equation}
+\begin{equation}
+	s_2=-7.8240 + 7.8240i
+\end{equation}
+\begin{equation}
+	s_3=-7.8240 - 7.8240i
+\end{equation}
+
+Chegamos então a: 
+\begin{equation}
+\label{eq:matk}
+K=
+\begin{bmatrix}
+0.3329 & -0.1232 & -0.0039
+\end{bmatrix}
+\end{equation}
+
+Posteriormente, para os requisitos de margem de fase e sobrelevação (ambos ligados ao fator de amortecimento do sistema), calculamos a margem de fase de $\kappa G(s)$ dada por $M_f=17.4123$, menor que margem de fase mínima de $45^o$. Como margem de segurança, adotaremos as margens de fase desejadas de $M_{d1}=45^o$, $M_{d2}=50^o$ e $M_{d3}=55^o$ que também garantem sobrelevação menor que $20\%$. Projetamos três controladores de maneira a ter opções caso a implementação real do sistema não corresponda às simulações. Idealmente gostaríamos de adotar uma margem de fase mais elevada, porém, após comparar a sua resposta com a resposta do sistema com margem de $45^o$, decidimos implementar mais opções.
+
+A partir destas margens de fase encontramos os parâmetros $\alpha_v$ dos controladores utilizando as equações \ref{eq:phi} e \ref{eq:av}. Com o conhecimento de $\alpha_v$ e da frequência $\omega_g$ na qual $\mod{\kappa G(j\omega_g)}=\sqrt{\alpha_v}$, encontramos $\tau_v$ pela equação \ref{eq:tv}. Os parâmetros $\alpha_t$ e $\tau_t$ são calculados pelas equações \ref{eq:at} e \ref{eq:tt}
+
+\begin{equation}
+\label{eq:phi}
+\phi=M_d-M_f
+\end{equation}
+\begin{equation}
+	\label{eq:av}
+	\alpha_v=\frac{1+\sin{\phi}}{1-\sin{\phi}}
+\end{equation}
+\begin{equation}
+	\label{eq:tv}
+	\tau_v=\frac{1}{\omega_g \sqrt{\alpha_v}}
+\end{equation}
+\begin{equation}
+\label{eq:at}
+\alpha_t=\frac{1}{\alpha_v}
+\end{equation}
+\begin{equation}
+\label{eq:tt}
+\tau_t=10\frac{\alpha_v \tau_v}{\alpha_t}
+\end{equation}
+
+Logo, a função de transferência dos controladores são dadas pela equação \ref{eq:contr1} e seus parâmetros pela tabela \ref{tab:contr}.
+
+\begin{equation}
+\label{eq:contr}
+C(s)=\kappa \frac{\alpha_v \tau_v s + 1}{\tau_v s + 1} \frac{\alpha_t \tau_t s + 1}{\tau_t s + 1}
+\end{equation}
+
+\begin{table}[H]
+	\centering
+	\caption{Parâmetros numéricos da função de transferência dos controladores Avanço-Atraso}
+	\label{tab:contr}
+	\begin{tabular}{|c|c|c|c|}
+		\hline Parâmetro & Controlador 1 ($M_d = 45^o$)& Controlador 2 ($M_d = 50^o$)& Controlador 3 ($M_d = 55^o$)\\ 
+		\hline $\kappa$ & $8.8445$ & $8.8445$ & $8.8445$\\ 
+		\hline $\alpha_v$ & $2.7251$ & $3.3345$ & $4.1279$\\ 
+		\hline $\tau_v$ & $0.0257$ & $0.0250$ & $0.0243$\\ 
+		\hline $\alpha_t$ & $0.3670$ & $0.2999$ & $0.2423$\\ 
+		\hline $\tau_t$ & $1.9108$ & $2.7768$ & $4.1334$\\ 
+		\hline 
+	\end{tabular} 
+\end{table}
+
+\subsection{Simulação e Comparação}
+Com o auxílio do Simulink simulamos as respostas dos 3 controladores à uma onda quadrada de amplitude $1V$ e frequência de $0,25Hz$, que podem ser vistas nas figuras \ref{fig:yr45}, \ref{fig:yr50} e \ref{fig:yr55}, e os seus esforços de controle, mostrados nas figuras \ref{fig:ur45}, \ref{fig:ur50} e \ref{fig:ur55}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{yr45}
+	\caption{Resposta à onda quadrada do controlador projetado para margem de fase de $45^o$}
+	\label{fig:yr45}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{ur45}
+	\caption{Esforço de controle para onda quadrada do controlador projetado para margem de fase de $45^o$}
+	\label{fig:ur45}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{yr50}
+	\caption{Resposta à onda quadrada do controlador projetado para margem de fase de $50^o$}
+	\label{fig:yr50}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{ur50}
+	\caption{Esforço de controle para onda quadrada do controlador projetado para margem de fase de $50^o$}
+	\label{fig:ur50}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{yr55}
+	\caption{Resposta à onda quadrada do controlador projetado para margem de fase de $55^o$}
+	\label{fig:yr55}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{ur55}
+	\caption{Esforço de controle para onda quadrada do controlador projetado para margem de fase de $55^o$}
+	\label{fig:ur55}
+\end{figure}
+
+Simulamos também as respostas destes controladores à uma rampa, estas são mostradas nas figuras \ref{fig:yru45r},\ref{fig:yru50r} e \ref{fig:yru55r}. Como podemos ver, o erro estacionário para essa entrada é próxima de $2\%$ para todos os controladores, conforme desejado.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{yru45}
+	\caption{Resposta à rampa do controlador projetado para margem de fase de $45^o$}
+	\label{fig:yur45}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{yru50}
+	\caption{Resposta à rampa do controlador projetado para margem de fase de $50^o$}
+	\label{fig:yur50}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{yru55}
+	\caption{Resposta à rampa do controlador projetado para margem de fase de $55^o$}
+	\label{fig:yur55}
+\end{figure}
+
+O controlador com margem de fase de $45^o$ é o que apresenta o menor tempo de estabilização e erro estacionário. Porém os outros controladores não apresentam a sobrelevação relativamente elevada que o primeiro controlador apresenta. A tabela \ref{tab:avat} apresenta as características das respostas desses controladores, obtida com o auxílio da função \textit{stepinfo} do Matlab.
+\begin{table}[H]
+	\centering
+	\caption{Características da resposta dos controladores Avanço-Atraso}
+	\label{tab:avat}
+	\begin{tabular}{|c|c|c|c|}
+		\hline Característica & Controlador 1 ($M_d = 45^o$)& Controlador 2 ($M_d = 50^o$)& Controlador 3 ($M_d = 55^o$)\\ 
+		\hline Sobrelevação & $12.3698\%$ & $4.0867\%$ & $3.4618\%$\\ 
+		\hline Tempo de estabilização & $0.7454s$ & $1.0142s$ & $1.3472s$\\ 
+		\hline Tempo de subida & $0.0503s$ & $0.0553s$ & $0.0628s$\\ 
+		\hline Erro estacionário (degrau) & $0.3\%$ & $0.6\%$ & $1\%$\\ 
+		\hline Erro estacionário (rampa) & $2\%$ & $2.5\%$ & $3\%$\\ 
+		\hline 
+	\end{tabular} 
+\end{table}
+
+Comparamos esse controlador com os controladores projetados no experimento 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{stepSISO}
+	\caption{Resposta ($y(t)$) à onda quadrada do sistema com controlador projetado com o auxílio do SISOTool discretizado}
+	\label{fig:stepSISO}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{stepuSISO}
+	\caption{Esforço de controle ($y(t)$) em resposta a uma onda quadrada do sistema com controlador projetado com o auxílio do SISOTool discretizado}
+	\label{fig:stepuSISO}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{rampSISO}
+	\caption{Resposta ($y(t)$) à uma rampa do sistema com controlador projetado com o auxílio do SISOTool discretizado}
+	\label{fig:rampSISO}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{rampuSISO}
+	\caption{Esforço de controle ($y(t)$) em resposta à uma rampa do sistema com controlador projetado com o auxílio do SISOTool discretizado}
+	\label{fig:rampuSISO}
+\end{figure}
+\begin{thebibliography}{widestlabel}
+	\bibitem{bb:roteiro}{Roteiro do experimento disponibilizado para os alunos}
+	\bibitem{bb:lab2}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 2:} Identificação de plantas eletrônicas.}
+\end{thebibliography}
+\end{document}
+

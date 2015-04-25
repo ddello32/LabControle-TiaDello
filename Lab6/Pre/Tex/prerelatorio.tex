@@ -50,8 +50,12 @@
 O objetivo desse experimento é projetar via realização em espaço de estado um controlador e um observador de estado para a planta eletrônica identificada no experimento 2\cite{bb:lab2}. 
 	
 \section{Projeto do Controlador}
-Consideramos a planta cuja função de transferência representada pela equação \ref{eq:gs} que foi obtida usando as medidas realizadas durante o experimento 2\cite{bb:lab2} para o projeto do controlador em espaço de estado conforme a figura \ref{fig:contrss}. A representação da planta em espaço de estado é mostrada em \ref{eq:ssxdot} e \ref{eq:ssy}, com as matrizes $A$, $B$ e $C$ indicadas em \ref{eq:mata}, 
-\ref{eq:matb}, \ref{eq:matc}.\\
+Consideramos a planta cuja função de transferência representada pela equação \ref{eq:gs} que foi obtida usando as medidas realizadas durante o experimento 2\cite{bb:lab2} para o projeto do controlador e observador em espaço de estado conforme a figura \ref{fig:contrss}, com as matrizes $A$, $B$ e $C$ indicadas em \ref{eq:mata}, \ref{eq:matb}, \ref{eq:matc}.\\
+
+\begin{equation}
+\label{eq:gs}
+G(s) = \frac{\kappa_1\kappa_2\kappa_3\kappa_4}{(s\tau_2 + 1)(s\tau_3 + 1)s}
+\end{equation}
 
 \begin{table}[H]
 	\centering
@@ -69,18 +73,13 @@ Consideramos a planta cuja função de transferência representada pela equaçã
 	\end{tabular} 
 \end{table}
 
-\begin{equation}
-\label{eq:gs}
-G(s) = \frac{\kappa_1\kappa_2\kappa_3\kappa_4}{(s\tau_2 + 1)(s\tau_3 + 1)s}
-\end{equation}
-\begin{equation}
-\label{eq:ssxdot}
-\dot{x}=Ax+Bu
-\end{equation}
-\begin{equation}
-\label{eq:ssy}
-y=Cx
-\end{equation}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{contrss}
+	\caption{Diagrama de blocos do sistema}
+	\label{fig:contrss}
+\end{figure}
+
 \begin{equation}
 \label{eq:mata}
 A=
@@ -107,13 +106,6 @@ C=
 \end{bmatrix}
 \end{equation}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{contrss}
-	\caption{Diagrama de blocos do sistema}
-	\label{fig:contrss}
-\end{figure}
-
 \subsection{Requisitos do Sistema e Projeto}
 Seguindo o proposto no roteiro \cite{bb:roteiro} as especificações do sistema são:
 \begin{itemize}
@@ -127,18 +119,18 @@ Seguindo o proposto no roteiro \cite{bb:roteiro} as especificações do sistema 
 % Projeto dos ganhos: K, L, M
 % Simulink: y(t) e u(t) para degrau e rampa
 
-Utilizando a metodologia indicada no roteiro\cite{bb:roteiro}, iniciamos o cumprimento dos três primeiros requisitos considerando as raízes obtidas como sendo:
+Considerando que o tempo de estabilização do sistema é influenciado principalmente pelos dois polos de menor parte real, podemos aproximar o sistema como de segunda ordem e calcular os polos que cumprem os dois primeiros requisitos. Escolhemos então o terceiro polo do sistema conforme especificado, obtendo:
 \begin{equation}
-	s_1=-30
+	s_1=-7.8240 + 7.8240i
 \end{equation}
 \begin{equation}
-	s_2=-7.8240 + 7.8240i
+	s_2=-7.8240 - 7.8240i
 \end{equation}
 \begin{equation}
-	s_3=-7.8240 - 7.8240i
+	s_3=-30
 \end{equation}
 
-Chegamos então a: 
+Utilizando a metodologia indicada no roteiro\cite{bb:roteiro}, chegamos então a: 
 \begin{equation}
 \label{eq:matk}
 K=

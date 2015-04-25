@@ -1,0 +1,37 @@
+clear all;close all;clc
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simulação controlador PID: r-seno saturado, 1000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% plot de entrada, saída e esforço de controle
+yru1000sin=figure;
+plot(t,ysimpidloco,t,rsimpidloco,t,usimpidloco)
+xlabel('Tempo(s)')
+ylabel('Amplitude(V)')
+legend('Saída','Entrada','Esforço Contr.')
+title('Simulação de controlador PID I')
+saveas(yru1000sin,'yru1000sin.eps','epsc')
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simulação controlador PID: r-seno saturado, 100
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% plot de entrada, saída e esforço de controle
+yru100sin=figure;
+plot(t100,ysimpidloco100,t100,rsimpidloco100,t100,usimpidloco100)
+xlabel('Tempo(s)')
+ylabel('Amplitude(V)')
+legend('Saída','Entrada','Esforço Contr.')
+title('Simulação de controlador PID II')
+saveas(yru100sin,'yru100sin.eps','epsc')
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simulação controlador PID: r-step, 1000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% plot de entrada, saída e esforço de controle
+yru1000step=figure;
+plot(t,ysimpidloco,t,rsimpidloco,t,usimpidloco)
+xlabel('Tempo(s)')
+ylabel('Amplitude(V)')
+legend('Saída','Entrada','Esforço Contr.')
+title('Simulação de controlador PID I')
+saveas(yru1000sin,'yru1000sin.eps','epsc')

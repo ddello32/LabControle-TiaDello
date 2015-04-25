@@ -14,3 +14,17 @@
 # Metadata
 *.aliases
 *.lvlps
+
+#Gedit temp files
+*~
+#Old zips
+*.rar
+*.zip
+*.gz
+
+#Latex
+*.aux
+*.log
+*.out
+*-converted-to*
+

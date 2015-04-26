@@ -123,8 +123,8 @@ Seguindo o proposto no roteiro \cite{bb:roteiro} as especificações do sistema 
 	\item Amplitude do sinal de controle não pode ultrapassar $\pm10$ [Volts].
 \end{itemize}\
 %TODO:
-% Projeto dos ganhos: K, L, M
-% Simulink: y(t) e u(t) para degrau e rampa
+% Calculo de Cu Cy e hs.
+% Comentar ruido bom.
 \subsubsection{Calculo de K}
 Considerando que o tempo de estabilização do sistema é influenciado principalmente pelos dois polos de menor parte real, podemos aproximar o sistema como de segunda ordem e calcular os polos que cumprem os dois primeiros requisitos. Escolhemos então o terceiro polo do sistema conforme especificado, obtendo:
 \begin{equation}
@@ -137,7 +137,7 @@ Considerando que o tempo de estabilização do sistema é influenciado principal
 	s_3=-30
 \end{equation}
 
-Utilizando a metodologia indicada no roteiro\cite{bb:roteiro}, encontramos K que aloca os autovalores da matriz (A - B*K) nos polos desejados, chegamos então a: 
+Utilizando a metodologia indicada no roteiro\cite{bb:roteiro}, encontramos K que aloca os autovalores da matriz $A - BK$ nos polos desejados, chegamos então a: 
 \begin{equation}
 \label{eq:matk}
 K=
@@ -147,7 +147,7 @@ K=
 \end{equation}
 
 \subsubsection{Calculo de L}
-A matriz L nos permite alocar os polos de nosso observador. Desejamos que este siga o estado do sistema de maneira mais rápida possível, ou seja, tenha um tempo de resposta menor que o controlador, porém sem que sua largura de faixa seja muito larga (para diminuir a influência de ruídos). Escolhemos então como polos do observador o dobro dos polos do controlador, obtendo então:
+A matriz L nos permite alocar os polos de nosso observador. Desejamos que este siga o estado do sistema de maneira mais rápida possível, ou seja, tenha um tempo de resposta menor que o controlador, porém sem que sua largura de faixa seja muito larga (para diminuir a influência de ruídos). Escolhemos então como polos do observador o dobro dos polos do controlador, obtendo L que aloca os polos da matriz $A - LC$ conforme o desejado:
 \begin{equation}
 \label{eq:matl}
 L=
@@ -156,52 +156,42 @@ L=
 \end{bmatrix}
 \end{equation}
 
-Posteriormente, para os requisitos de margem de fase e sobrelevação (ambos ligados ao fator de amortecimento do sistema), calculamos a margem de fase de $\kappa G(s)$ dada por $M_f=17.4123$, menor que margem de fase mínima de $45^o$. Como margem de segurança, adotaremos as margens de fase desejadas de $M_{d1}=45^o$, $M_{d2}=50^o$ e $M_{d3}=55^o$ que também garantem sobrelevação menor que $20\%$. Projetamos três controladores de maneira a ter opções caso a implementação real do sistema não corresponda às simulações. Idealmente gostaríamos de adotar uma margem de fase mais elevada, porém, após comparar a sua resposta com a resposta do sistema com margem de $45^o$, decidimos implementar mais opções.
-
-A partir destas margens de fase encontramos os parâmetros $\alpha_v$ dos controladores utilizando as equações \ref{eq:phi} e \ref{eq:av}. Com o conhecimento de $\alpha_v$ e da frequência $\omega_g$ na qual $\mod{\kappa G(j\omega_g)}=\sqrt{\alpha_v}$, encontramos $\tau_v$ pela equação \ref{eq:tv}. Os parâmetros $\alpha_t$ e $\tau_t$ são calculados pelas equações \ref{eq:at} e \ref{eq:tt}
-
+\subsubsection{Calculo de M}
+Para cumprir a quarta especificação, devemos encontrar a matriz M que satisfaz as equações \ref{eq:m1} e \ref{eq:m2}.
 \begin{equation}
-\label{eq:phi}
-\phi=M_d-M_f
+\label{eq:m1}
+S(0)KM(0) = 1
 \end{equation}
 \begin{equation}
-	\label{eq:av}
-	\alpha_v=\frac{1+\sin{\phi}}{1-\sin{\phi}}
+\label{eq:m2}
+(\frac{d}{ds}(S(s)KM(s)))_{s=0}= 0
+\end{equation}
+Conforme sugerido no roteiro\cite{bb:roteiro}, escolhemos M da forma:
+\begin{equation}
+\label{eq:mlayout}
+M = \frac{\frac{s}{\tau} + 1}{\frac{s}{30} + 1}*\begin{bmatrix}
+m_1\\
+m_2\\
+m_3
+\end{bmatrix}
+\end{equation}
+Obtivemos então as equações:
+\begin{equation}
+	m_1 - 0.3702*m_2 - 0.0117*m_3 = 1
 \end{equation}
 \begin{equation}
-	\label{eq:tv}
-	\tau_v=\frac{1}{\omega_g \sqrt{\alpha_v}}
+	\frac{1}{\tau} - 0.1945 = 0
 \end{equation}
+Como os valores de $m_1$, $m_2$ e $m_3$ pouco afetam a resposta do sistema, desde que sigam as equações acima, escolhemos arbitrariamente os valores $m_1 = 1$ e $m_2 = 0.5$ e resolvemos o sistema, obtendo:
 \begin{equation}
-\label{eq:at}
-\alpha_t=\frac{1}{\alpha_v}
+\label{eq:mvalor}
+M = \frac{\frac{s}{5.142} + 1}{\frac{s}{30} + 1}*
+\begin{bmatrix}
+	1\\
+	0.5\\
+	-15.8275
+\end{bmatrix}
 \end{equation}
-\begin{equation}
-\label{eq:tt}
-\tau_t=10\frac{\alpha_v \tau_v}{\alpha_t}
-\end{equation}
-
-Logo, a função de transferência dos controladores são dadas pela equação \ref{eq:contr1} e seus parâmetros pela tabela \ref{tab:contr}.
-
-\begin{equation}
-\label{eq:contr}
-C(s)=\kappa \frac{\alpha_v \tau_v s + 1}{\tau_v s + 1} \frac{\alpha_t \tau_t s + 1}{\tau_t s + 1}
-\end{equation}
-
-\begin{table}[H]
-	\centering
-	\caption{Parâmetros numéricos da função de transferência dos controladores Avanço-Atraso}
-	\label{tab:contr}
-	\begin{tabular}{|c|c|c|c|}
-		\hline Parâmetro & Controlador 1 ($M_d = 45^o$)& Controlador 2 ($M_d = 50^o$)& Controlador 3 ($M_d = 55^o$)\\ 
-		\hline $\kappa$ & $8.8445$ & $8.8445$ & $8.8445$\\ 
-		\hline $\alpha_v$ & $2.7251$ & $3.3345$ & $4.1279$\\ 
-		\hline $\tau_v$ & $0.0257$ & $0.0250$ & $0.0243$\\ 
-		\hline $\alpha_t$ & $0.3670$ & $0.2999$ & $0.2423$\\ 
-		\hline $\tau_t$ & $1.9108$ & $2.7768$ & $4.1334$\\ 
-		\hline 
-	\end{tabular} 
-\end{table}
 
 \subsection{Simulação}
 Com o auxílio do Simulink simulamos (com e sem ruído branco) as respostas do controlador à uma onda quadrada de amplitude $1V$ e frequência de $0,25Hz$, e seus esforços de controle, que podem ser vistas nas figuras \ref{fig:yur} e \ref{fig:yurN}.
@@ -225,16 +215,15 @@ Simulamos também a resposta deste controlador à uma rampa, mostrado na figura 
 	\caption{Resposta e esforço de controle para rampa}
 	\label{fig:yurR}
 \end{figure}
-%TODO: stepinfo
 A tabela \ref{tab:stepinfo} apresenta as características da resposta desse controlador, obtida com o auxílio da função \textit{stepinfo} do Matlab.
 \begin{table}[H]
 	\centering
 	\caption{Características da resposta do controlador}
 	\label{tab:avat}
 	\begin{tabular}{|c|c|}
-		\hline Sobrelevação 				& $12.3698\%$ \\ 
-		\hline Tempo de estabilização 		& $0.7454$ [s]\\ 
-		\hline Tempo de subida				& $0.0503$ [s]\\ 
+		\hline Sobrelevação 				& $39.1095\%$ \\ 
+		\hline Tempo de estabilização 		& $0.5089$ [s]\\ 
+		\hline Tempo de subida				& $0.0835$ [s]\\ 
 		\hline Erro estacionário (degrau) 	& $0$\\ 
 		\hline Erro estacionário (rampa) 	& $0$\\ 
 		\hline 

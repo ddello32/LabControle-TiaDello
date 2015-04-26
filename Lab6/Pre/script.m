@@ -32,8 +32,8 @@ K = place(A,B,vpc)
 %m1 - 0.3702*m2 - 0.0117*m3 == 1
 syms s m1 m2 m3 tau;
 Sa = C*inv(s*eye(3) - (A - B*K))*B;
-M = (s/tau + 1)/(s/30 + 1)*[m1; m2; m3];
-[m1r, m2r, m3r, taur] = solve(subs(Sa*K*M, s, 0) == 1, subs(diff(Sa*K*M, s), s, 0) == 0, m1 == 1, m2 == 0.5, m1, m2, m3, tau);
+Ma = (s/tau + 1)/(s/30 + 1)*[m1; m2; m3];
+[m1r, m2r, m3r, taur] = solve(subs(Sa*K*Ma, s, 0) == 1, subs(diff(Sa*K*Ma, s), s, 0) == 0, m1 == 1, m2 == 0.5, m1, m2, m3, tau);
 M = (tf('s')/eval(taur) + 1)/(tf('s')/30 + 1)*[eval(m1r); eval(m2r); eval(m3r)]
 
 %% observateur

@@ -50,19 +50,12 @@
 O objetivo desse experimento é projetar via realização em espaço de estado um controlador e um observador de estado para a planta eletrônica identificada no experimento 2\cite{bb:lab2}. 
 	
 \section{Projeto do Controlador}
-Consideramos a planta cuja função de transferência representada pela equação \ref{eq:gs} que foi obtida usando as medidas realizadas durante o experimento 2\cite{bb:lab2} para o projeto do controlador e observador em espaço de estado conforme a figura \ref{fig:contrss}, com as matrizes $A$, $B$ e $C$ indicadas em \ref{eq:mata}, \ref{eq:matb}, \ref{eq:matc}.\\
+Consideramos a planta cuja função de transferência, representada pela equação \ref{eq:gs}, que foi obtida usando as medidas realizadas durante o experimento 2\cite{bb:lab2} para o projeto do controlador e observador em espaço de estado conforme a figura \ref{fig:contrss}, com as matrizes $A$, $B$ e $C$ indicadas em \ref{eq:mata}, \ref{eq:matb} e \ref{eq:matc}.\\
 
 \begin{equation}
 \label{eq:gs}
 G(s) = \frac{\kappa_1\kappa_2\kappa_3\kappa_4}{(s\tau_2 + 1)(s\tau_3 + 1)s}
 \end{equation}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{contrss}
-	\caption{Diagrama de blocos do sistema}
-	\label{fig:contrss}
-\end{figure}
 
 \begin{table}[H]
 	\centering
@@ -122,9 +115,7 @@ Seguindo o proposto no roteiro \cite{bb:roteiro} as especificações do sistema 
 	\item Erro em regime permanente nulo a uma entrada rampa.
 	\item Amplitude do sinal de controle não pode ultrapassar $\pm10$ [Volts].
 \end{itemize}\
-%TODO:
-% Calculo de Cu Cy e hs.
-% Comentar ruido bom.
+
 \subsection{Calculo de K}
 Considerando que o tempo de estabilização do sistema é influenciado principalmente pelos dois polos de menor parte real, podemos aproximar o sistema como de segunda ordem e calcular os polos que cumprem os dois primeiros requisitos. Escolhemos então o terceiro polo do sistema conforme especificado, obtendo:
 \begin{equation}
@@ -169,7 +160,7 @@ S(0)KM(0) = 1
 Conforme sugerido no roteiro\cite{bb:roteiro}, escolhemos M da forma:
 \begin{equation}
 \label{eq:mlayout}
-M = \frac{\frac{s}{\tau} + 1}{\frac{s}{30} + 1}*\begin{bmatrix}
+M = \frac{\frac{s}{\tau} + 1}{\frac{s}{30} + 1}\begin{bmatrix}
 m_1\\
 m_2\\
 m_3
@@ -177,7 +168,7 @@ m_3
 \end{equation}
 Obtivemos então as equações:
 \begin{equation}
-	m_1 - 0.3702*m_2 - 0.0117*m_3 = 1
+	m_1 - 0.3702m_2 - 0.0117m_3 = 1
 \end{equation}
 \begin{equation}
 	\frac{1}{\tau} - 0.1945 = 0
@@ -217,7 +208,7 @@ C_y(s) = K(sI - (A - LC))^{-1}L = \frac{-53.74s^2-1488s+9782}{s^3+91.3s^2+2367s+
 
 
 \section{Simulação}
-Com o auxílio do Simulink simulamos (com e sem ruído branco) as respostas do controlador à uma onda quadrada de amplitude $1V$ e frequência de $0,25Hz$, e seus esforços de controle, que podem ser vistas nas figuras \ref{fig:yur} e \ref{fig:yurN}.
+Com o auxílio do Simulink simulamos (com e sem ruído branco) as respostas do controlador a uma onda quadrada de amplitude $1V$ e frequência de $0,25Hz$, e seus esforços de controle, que podem ser vistas nas figuras \ref{fig:yur} e \ref{fig:yurN}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../yur}
@@ -231,7 +222,7 @@ Com o auxílio do Simulink simulamos (com e sem ruído branco) as respostas do c
 	\label{fig:yurN}
 \end{figure}
 
-Simulamos também a resposta deste controlador à uma rampa, mostrado na figura \ref{fig:yurR}. Como podemos ver, o erro estacionário para essa entrada é nulo, conforme desejado.
+Simulamos também a resposta deste controlador a uma rampa, mostrada na figura \ref{fig:yurR}. Como podemos ver, o erro estacionário para essa entrada é nulo, conforme desejado.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../yurR}
@@ -242,7 +233,7 @@ A tabela \ref{tab:stepinfo} apresenta as características da resposta desse cont
 \begin{table}[H]
 	\centering
 	\caption{Características da resposta do controlador}
-	\label{tab:avat}
+	\label{tab:stepinfo}
 	\begin{tabular}{|c|c|}
 		\hline Sobrelevação 				& $39.1095\%$ \\ 
 		\hline Tempo de estabilização 		& $0.5089$ [s]\\ 
@@ -253,7 +244,7 @@ A tabela \ref{tab:stepinfo} apresenta as características da resposta desse cont
 	\end{tabular} 
 \end{table}
 
-Como podemos ver o sistema atinge todas as especificações e não é muito sucessível a ruídos, porém ele apresenta uma sobrelevação bastante significativa. Nossa análise mostra que essa sobrelevação está associada à matriz M, quando relaxamos o critério de erro estacionário à rampa, observa-se uma diminuição na mesma para $5\%$, uma possível solução seria mudar a forma da função de transferência da matriz. 
+Como podemos ver o sistema atinge todas as especificações e não é muito susceptível a ruídos, porém ele apresenta uma sobrelevação bastante significativa. Nossa análise mostra que essa sobrelevação está associada à matriz M, quando relaxamos o critério de erro estacionário à rampa observa-se uma diminuição do overshoot para $5\%$, uma possível solução seria mudar a forma da função de transferência da matriz. 
 \begin{thebibliography}{widestlabel}
 	\bibitem{bb:roteiro}{Roteiro do experimento disponibilizado para os alunos}
 	\bibitem{bb:lab2}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 2:} Identificação de plantas eletrônicas.}

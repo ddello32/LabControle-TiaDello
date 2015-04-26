@@ -57,6 +57,13 @@ Consideramos a planta cuja função de transferência representada pela equaçã
 G(s) = \frac{\kappa_1\kappa_2\kappa_3\kappa_4}{(s\tau_2 + 1)(s\tau_3 + 1)s}
 \end{equation}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{contrss}
+	\caption{Diagrama de blocos do sistema}
+	\label{fig:contrss}
+\end{figure}
+
 \begin{table}[H]
 	\centering
 	\caption{Parâmetros numéricos da função de transferência}
@@ -196,109 +203,43 @@ C(s)=\kappa \frac{\alpha_v \tau_v s + 1}{\tau_v s + 1} \frac{\alpha_t \tau_t s +
 	\end{tabular} 
 \end{table}
 
-\subsection{Simulação e Comparação}
-Com o auxílio do Simulink simulamos as respostas dos 3 controladores à uma onda quadrada de amplitude $1V$ e frequência de $0,25Hz$, que podem ser vistas nas figuras \ref{fig:yr45}, \ref{fig:yr50} e \ref{fig:yr55}, e os seus esforços de controle, mostrados nas figuras \ref{fig:ur45}, \ref{fig:ur50} e \ref{fig:ur55}.
+\subsection{Simulação}
+Com o auxílio do Simulink simulamos (com e sem ruído branco) as respostas do controlador à uma onda quadrada de amplitude $1V$ e frequência de $0,25Hz$, e seus esforços de controle, que podem ser vistas nas figuras \ref{fig:yur} e \ref{fig:yurN}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{yr45}
-	\caption{Resposta à onda quadrada do controlador projetado para margem de fase de $45^o$}
-	\label{fig:yr45}
+	\includegraphics[width=0.8\linewidth]{../yur}
+	\caption{Resposta e esforço de controle para onda quadrada}
+	\label{fig:yur}
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{ur45}
-	\caption{Esforço de controle para onda quadrada do controlador projetado para margem de fase de $45^o$}
-	\label{fig:ur45}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{yr50}
-	\caption{Resposta à onda quadrada do controlador projetado para margem de fase de $50^o$}
-	\label{fig:yr50}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{ur50}
-	\caption{Esforço de controle para onda quadrada do controlador projetado para margem de fase de $50^o$}
-	\label{fig:ur50}
+	\includegraphics[width=0.8\linewidth]{../yurN}
+	\caption{Resposta e esforço de controle para onda quadrada com ruído branco}
+	\label{fig:yurN}
 \end{figure}
 
-
+Simulamos também a resposta deste controlador à uma rampa, mostrado na figura \ref{fig:yurR}. Como podemos ver, o erro estacionário para essa entrada é nulo, conforme desejado.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{yr55}
-	\caption{Resposta à onda quadrada do controlador projetado para margem de fase de $55^o$}
-	\label{fig:yr55}
+	\includegraphics[width=0.8\linewidth]{../yurR}
+	\caption{Resposta e esforço de controle para rampa}
+	\label{fig:yurR}
 \end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{ur55}
-	\caption{Esforço de controle para onda quadrada do controlador projetado para margem de fase de $55^o$}
-	\label{fig:ur55}
-\end{figure}
-
-Simulamos também as respostas destes controladores à uma rampa, estas são mostradas nas figuras \ref{fig:yru45r},\ref{fig:yru50r} e \ref{fig:yru55r}. Como podemos ver, o erro estacionário para essa entrada é próxima de $2\%$ para todos os controladores, conforme desejado.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{yru45}
-	\caption{Resposta à rampa do controlador projetado para margem de fase de $45^o$}
-	\label{fig:yur45}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{yru50}
-	\caption{Resposta à rampa do controlador projetado para margem de fase de $50^o$}
-	\label{fig:yur50}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{yru55}
-	\caption{Resposta à rampa do controlador projetado para margem de fase de $55^o$}
-	\label{fig:yur55}
-\end{figure}
-
-O controlador com margem de fase de $45^o$ é o que apresenta o menor tempo de estabilização e erro estacionário. Porém os outros controladores não apresentam a sobrelevação relativamente elevada que o primeiro controlador apresenta. A tabela \ref{tab:avat} apresenta as características das respostas desses controladores, obtida com o auxílio da função \textit{stepinfo} do Matlab.
+%TODO: stepinfo
+A tabela \ref{tab:stepinfo} apresenta as características da resposta desse controlador, obtida com o auxílio da função \textit{stepinfo} do Matlab.
 \begin{table}[H]
 	\centering
-	\caption{Características da resposta dos controladores Avanço-Atraso}
+	\caption{Características da resposta do controlador}
 	\label{tab:avat}
-	\begin{tabular}{|c|c|c|c|}
-		\hline Característica & Controlador 1 ($M_d = 45^o$)& Controlador 2 ($M_d = 50^o$)& Controlador 3 ($M_d = 55^o$)\\ 
-		\hline Sobrelevação & $12.3698\%$ & $4.0867\%$ & $3.4618\%$\\ 
-		\hline Tempo de estabilização & $0.7454s$ & $1.0142s$ & $1.3472s$\\ 
-		\hline Tempo de subida & $0.0503s$ & $0.0553s$ & $0.0628s$\\ 
-		\hline Erro estacionário (degrau) & $0.3\%$ & $0.6\%$ & $1\%$\\ 
-		\hline Erro estacionário (rampa) & $2\%$ & $2.5\%$ & $3\%$\\ 
+	\begin{tabular}{|c|c|}
+		\hline Sobrelevação 				& $12.3698\%$ \\ 
+		\hline Tempo de estabilização 		& $0.7454$ [s]\\ 
+		\hline Tempo de subida				& $0.0503$ [s]\\ 
+		\hline Erro estacionário (degrau) 	& $0$\\ 
+		\hline Erro estacionário (rampa) 	& $0$\\ 
 		\hline 
 	\end{tabular} 
 \end{table}
-
-Comparamos esse controlador com os controladores projetados no experimento 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{stepSISO}
-	\caption{Resposta ($y(t)$) à onda quadrada do sistema com controlador projetado com o auxílio do SISOTool discretizado}
-	\label{fig:stepSISO}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{stepuSISO}
-	\caption{Esforço de controle ($y(t)$) em resposta a uma onda quadrada do sistema com controlador projetado com o auxílio do SISOTool discretizado}
-	\label{fig:stepuSISO}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{rampSISO}
-	\caption{Resposta ($y(t)$) à uma rampa do sistema com controlador projetado com o auxílio do SISOTool discretizado}
-	\label{fig:rampSISO}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{rampuSISO}
-	\caption{Esforço de controle ($y(t)$) em resposta à uma rampa do sistema com controlador projetado com o auxílio do SISOTool discretizado}
-	\label{fig:rampuSISO}
-\end{figure}
 \begin{thebibliography}{widestlabel}
 	\bibitem{bb:roteiro}{Roteiro do experimento disponibilizado para os alunos}
 	\bibitem{bb:lab2}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 2:} Identificação de plantas eletrônicas.}

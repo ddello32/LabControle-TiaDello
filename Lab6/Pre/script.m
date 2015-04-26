@@ -39,7 +39,7 @@ M = (tf('s')/eval(taur) + 1)/(tf('s')/30 + 1)*[eval(m1r); eval(m2r); eval(m3r)]
 %% observateur
 rank([C; C*A; (C*A)*A]) % test observabilité
 %% TODO Calcular autovalores do observador
-vpo = [-60 vpc(2)/3 vpc(3)/3]; % vp désirées pour Aa-La*Ca
+vpo = vpc*2; % vp désirées pour Aa-La*Ca
 L = transpose(place(A',C',vpo))
 eig(A-L*C)
 

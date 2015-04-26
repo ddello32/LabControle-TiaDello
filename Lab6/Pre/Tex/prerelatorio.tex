@@ -118,7 +118,7 @@ Seguindo o proposto no roteiro \cite{bb:roteiro} as especificações do sistema 
 %TODO:
 % Projeto dos ganhos: K, L, M
 % Simulink: y(t) e u(t) para degrau e rampa
-
+\subsubsection{Calculo de K}
 Considerando que o tempo de estabilização do sistema é influenciado principalmente pelos dois polos de menor parte real, podemos aproximar o sistema como de segunda ordem e calcular os polos que cumprem os dois primeiros requisitos. Escolhemos então o terceiro polo do sistema conforme especificado, obtendo:
 \begin{equation}
 	s_1=-7.8240 + 7.8240i
@@ -130,12 +130,22 @@ Considerando que o tempo de estabilização do sistema é influenciado principal
 	s_3=-30
 \end{equation}
 
-Utilizando a metodologia indicada no roteiro\cite{bb:roteiro}, chegamos então a: 
+Utilizando a metodologia indicada no roteiro\cite{bb:roteiro}, encontramos K que aloca os autovalores da matriz (A - B*K) nos polos desejados, chegamos então a: 
 \begin{equation}
 \label{eq:matk}
 K=
 \begin{bmatrix}
 0.3329 & -0.1232 & -0.0039
+\end{bmatrix}
+\end{equation}
+
+\subsubsection{Calculo de L}
+A matriz L nos permite alocar os polos de nosso observador. Desejamos que este siga o estado do sistema de maneira mais rápida possível, ou seja, tenha um tempo de resposta menor que o controlador, porém sem que sua largura de faixa seja muito larga (para diminuir a influência de ruídos). Escolhemos então como polos do observador o dobro dos polos do controlador, obtendo então:
+\begin{equation}
+\label{eq:matl}
+L=
+\begin{bmatrix}
+2.6935 & 177.2424 & 8422.7
 \end{bmatrix}
 \end{equation}
 

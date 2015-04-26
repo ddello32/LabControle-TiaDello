@@ -98,5 +98,35 @@ legend('Saída','Entrada', 'Esforço de Controle')
 title('Simulação do controlador para entrada rampa')
 saveas(yurR,'yurR.eps','epsc')
 infoR = stepinfo(ymR(1:2000), t(1:2000), 1)
+
+%% Observador
+t = stateslog.get('x').Values.Time;
+x1 = stateslog.get('x').Values.Data(:,1);
+x2 = stateslog.get('x').Values.Data(:,2);
+x3 = stateslog.get('x').Values.Data(:,3);
+x1e = stateslog.get('xest').Values.Data(:,1);
+x2e = stateslog.get('xest').Values.Data(:,2);
+x3e = stateslog.get('xest').Values.Data(:,3);
+
+obsx1 = figure,
+plot(t(1:4001), x1(1:4001), 'b-', t(1:4001), x1e(1:4001), 'r-');
+xlabel('Tempo(s)')
+ylabel('Estado')
+legend('x_1', 'x_{1obs}')
+saveas(obsx1,'obsx1.eps','epsc')
+
+obsx2 = figure,
+plot(t(1:4001), x2(1:4001), 'b-', t(1:4001), x2e(1:4001), 'r-');
+xlabel('Tempo(s)')
+ylabel('Estado')
+legend('x_2','x_{2obs}')
+saveas(obsx2,'obsx2.eps','epsc')
+
+obsx3 = figure,
+plot(t(1:4001), x3(1:4001), 'b-', t(1:4001), x3e(1:4001), 'r-');
+xlabel('Tempo(s)')
+ylabel('Estado')
+legend('x_3', 'x_{3obs}')
+saveas(obsx3,'obsx3.eps','epsc')
 %% Eps encoding fix in linux
 !epsfixer.sh

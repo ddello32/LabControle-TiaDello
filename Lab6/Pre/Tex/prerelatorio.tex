@@ -218,9 +218,31 @@ Com o auxílio do Simulink simulamos (com e sem ruído branco) as respostas do c
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../yurN}
-	\caption{Resposta e esforço de controle para onda quadrada com ruído branco}
+	\caption{Resposta e esforço de controle para onda quadrada, com ruído branco}
 	\label{fig:yurN}
 \end{figure}
+
+Para analisar a eficiência do nosso observador, simulamos o modelo no espaço de estados (em torno do ponto de equilíbrio [0,0,0]', com estado inicial do controlador [0, 0, 0]' e do observador [1, 0, 0]') e plotamos o estado do sistema e o estado estimado pelo observador, que podem ser vistos nas figuras \ref{fig:obsx1}, \ref{fig:obsx2} e \ref{fig:obsx3}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../obsx1}
+	\caption{Estado $x_1$ real e estimado do sistema para onda quadrada, com ruído branco}
+	\label{fig:obsx1}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../obsx2}
+	\caption{Estado $x_2$ real e estimado do sistema para onda quadrada, com ruído branco}
+	\label{fig:obsx2}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../obsx3}
+	\caption{Estado $x_3$ real e estimado do sistema para onda quadrada, com ruído branco}
+	\label{fig:obsx3}
+\end{figure}
+Como podemos ver o observador projetado segue bem o sistema real e não foi gravemente afetado pelo ruído.
+
 
 Simulamos também a resposta deste controlador a uma rampa, mostrada na figura \ref{fig:yurR}. Como podemos ver, o erro estacionário para essa entrada é nulo, conforme desejado.
 \begin{figure}[H]
@@ -244,7 +266,22 @@ A tabela \ref{tab:stepinfo} apresenta as características da resposta desse cont
 	\end{tabular} 
 \end{table}
 
-Como podemos ver o sistema atinge todas as especificações e não é muito susceptível a ruídos, porém ele apresenta uma sobrelevação bastante significativa. Nossa análise mostra que essa sobrelevação está associada à matriz M, quando relaxamos o critério de erro estacionário à rampa observa-se uma diminuição do overshoot para $5\%$, uma possível solução seria mudar a forma da função de transferência da matriz. 
+Como podemos ver o sistema atinge todas as especificações e não é muito susceptível a ruídos, porém ele apresenta uma sobrelevação bastante significativa. Nossa análise mostra que essa sobrelevação está associada à matriz M, porque quando relaxamos o critério de erro estacionário à rampa observa-se uma diminuição do overshoot para $5\%$.
+
+
+Isso acontece pois essa matriz acrescenta um zero (em $- 5.142$) no sistema. O efeito desse zero pode ser visto se levamos em consideração a função de transferência:
+\begin{equation}
+	H_z(s) = (\frac{s}{z} + 1)H(s) = H(s) + \frac{1}{z}sH(s)
+\end{equation}
+Logo a resposta ao degrau do sistema acrescentado de um zero será da forma:
+\begin{equation}
+Y_z(s) = (H(s) + \frac{1}{z}sH(s))\frac{1}{s} = H(s)\frac{1}{s} + \frac{s}{z}H(s)\frac{1}{s} = Y(s) + \frac{s}{z}Y(s)
+\end{equation}
+Tirando a transformada de Laplace inversa:
+\begin{equation}
+y_z(t) = y(t) + \frac{1}{z}\dot{y(t)}
+\end{equation}
+Podemos ver então que ao acrescentar um zero no sistema nós somamos um termo derivativo à resposta original, o que causa um aumento na sobrelevação e uma aceleração na resposta do sistema (uma vez que nas transições a derivada terá um valor significativo). Para anular o efeito desse zero nós precisaríamos aumentar seu valor absoluto, porém para fazer isso e ainda cumprir a exigência de erro estacionário nulo para à rampa precisaríamos alterar a matriz K, o que implicaria no não cumprimento das outras exigências do projeto.
 \begin{thebibliography}{widestlabel}
 	\bibitem{bb:roteiro}{Roteiro do experimento disponibilizado para os alunos}
 	\bibitem{bb:lab2}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 2:} Identificação de plantas eletrônicas.}

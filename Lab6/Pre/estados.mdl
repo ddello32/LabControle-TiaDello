@@ -6,9 +6,25 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.44"
+    ComputedModelVersion    "1.47"
     NumModelReferences	    0
-    NumTestPointedSignals   0
+    NumTestPointedSignals   2
+    TestPointedSignal {
+      SignalName	      "x"
+      FullBlockPath	      "estados/My system/Demux"
+      PortIndex		      2
+      LogSignal		      1
+      MaxPoints		      5000
+      Decimation	      2
+    }
+    TestPointedSignal {
+      SignalName	      "xest"
+      FullBlockPath	      "estados/Observer/Demux"
+      PortIndex		      2
+      LogSignal		      1
+      MaxPoints		      5000
+      Decimation	      2
+    }
   }
   SavedCharacterEncoding  "UTF-8"
   SaveDefaultBlockParams  on
@@ -30,7 +46,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [270.0, 14.0, 1106.0, 764.0]
+      Location		      [250.0, 14.0, 1126.0, 764.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -49,31 +65,22 @@ Model {
       }
       Array {
 	Type			"Simulink.EditorInfo"
-	Dimension		3
+	Dimension		2
 	Object {
 	  $ObjectID		  5
-	  IsActive		  [1]
+	  IsActive		  [0]
 	  ViewObjType		  "SimulinkTopLevel"
 	  LoadSaveID		  "0"
-	  Extents		  [1050.0, 568.0]
+	  Extents		  [1070.0, 568.0]
 	  ZoomFactor		  [1.41]
-	  Offset		  [0.0, 0.0]
+	  Offset		  [-8.89782801418437, 0.0]
 	}
 	Object {
 	  $ObjectID		  6
-	  IsActive		  [0]
-	  ViewObjType		  "SimulinkSubsys"
-	  LoadSaveID		  "25"
-	  Extents		  [1050.0, 568.0]
-	  ZoomFactor		  [1.51]
-	  Offset		  [0.0, 0.0]
-	}
-	Object {
-	  $ObjectID		  7
-	  IsActive		  [0]
+	  IsActive		  [1]
 	  ViewObjType		  "SimulinkSubsys"
 	  LoadSaveID		  "1"
-	  Extents		  [1050.0, 568.0]
+	  Extents		  [1070.0, 568.0]
 	  ZoomFactor		  [1.5799999999999998]
 	  Offset		  [1.9895196601282805e-12, -2.8421709430404007e-14]
 	}
@@ -87,9 +94,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "dello"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sat Apr 25 18:43:53 2015"
-  RTWModifiedTimeStamp	  351888174
-  ModelVersionFormat	  "1.%<AutoIncrement:44>"
+  LastModifiedDate	  "Sun Apr 26 13:42:01 2015"
+  RTWModifiedTimeStamp	  351956517
+  ModelVersionFormat	  "1.%<AutoIncrement:47>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -124,7 +131,7 @@ Model {
   TryForcingSFcnDF	  off
   Object {
     $PropName		    "DataLoggingOverride"
-    $ObjectID		    8
+    $ObjectID		    7
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "estados"
     Array {
@@ -182,13 +189,13 @@ Model {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      9
+      $ObjectID		      8
       Version		      "1.13.0"
       Array {
 	Type			"Handle"
 	Dimension		8
 	Simulink.SolverCC {
-	  $ObjectID		  10
+	  $ObjectID		  9
 	  Version		  "1.13.0"
 	  StartTime		  "0.0"
 	  StopTime		  "40"
@@ -223,20 +230,20 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  11
+	  $ObjectID		  10
 	  Version		  "1.13.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
 	  InitialState		  "xInitial"
-	  LimitDataPoints	  on
+	  LimitDataPoints	  off
 	  MaxDataPoints		  "1000"
 	  LoadExternalInput	  off
 	  LoadInitialState	  off
 	  SaveFinalState	  off
 	  SaveCompleteFinalSimState off
 	  SaveFormat		  "Array"
-	  SignalLoggingSaveFormat "ModelDataLogs"
+	  SignalLoggingSaveFormat "Dataset"
 	  SaveOutput		  on
 	  SaveState		  off
 	  SignalLogging		  on
@@ -244,10 +251,10 @@ Model {
 	  InspectSignalLogs	  off
 	  SaveTime		  on
 	  ReturnWorkspaceOutputs  off
-	  StateSaveName		  "xout"
+	  StateSaveName		  "x, xest"
 	  TimeSaveName		  "tout"
 	  OutputSaveName	  "yout"
-	  SignalLoggingName	  "logsout"
+	  SignalLoggingName	  "stateslog"
 	  DSMLoggingName	  "dsmout"
 	  OutputOption		  "RefineOutputTimes"
 	  OutputTimes		  "[]"
@@ -255,7 +262,7 @@ Model {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  12
+	  $ObjectID		  11
 	  Version		  "1.13.0"
 	  Array {
 	    Type		    "Cell"
@@ -307,7 +314,7 @@ Model {
 	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  13
+	  $ObjectID		  12
 	  Version		  "1.13.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -397,7 +404,7 @@ Model {
 	  SFTransitionActionBeforeConditionDiag	"warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  14
+	  $ObjectID		  13
 	  Version		  "1.13.0"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -438,7 +445,7 @@ Model {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  15
+	  $ObjectID		  14
 	  Version		  "1.13.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
@@ -453,7 +460,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  16
+	  $ObjectID		  15
 	  Version		  "1.13.0"
 	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
@@ -468,7 +475,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  17
+	  $ObjectID		  16
 	  Version		  "1.13.0"
 	  Array {
 	    Type		    "Cell"
@@ -524,7 +531,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      18
+	      $ObjectID		      17
 	      Version		      "1.13.0"
 	      Array {
 		Type			"Cell"
@@ -579,7 +586,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      19
+	      $ObjectID		      18
 	      Version		      "1.13.0"
 	      Array {
 		Type			"Cell"
@@ -659,18 +666,18 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition     [ 243, 69, 1123, 699 ] 
+      CurrentDlgPage	      "Data Import//Export"
+      ConfigPrmDlgPosition     [ 250, 13, 1170, 739 ] 
     }
     PropName		    "ConfigurationSets"
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    9
+    $ObjectID		    8
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    20
+    $ObjectID		    19
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -740,6 +747,17 @@ Model {
       Outputs		      "4"
       DisplayOption	      "none"
       BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      DiscretePulseGenerator
+      PulseType		      "Sample based"
+      TimeSource	      "Use simulation time"
+      Amplitude		      "1"
+      Period		      "2"
+      PulseWidth	      "1"
+      PhaseDelay	      "0"
+      SampleTime	      "1"
+      VectorParams1D	      on
     }
     Block {
       BlockType		      Gain
@@ -838,15 +856,6 @@ Model {
       Realization	      "auto"
     }
     Block {
-      BlockType		      Step
-      Time		      "1"
-      Before		      "0"
-      After		      "1"
-      SampleTime	      "-1"
-      VectorParams1D	      on
-      ZeroCross		      on
-    }
-    Block {
       BlockType		      SubSystem
       ShowPortLabels	      "FromPortIcon"
       Permissions	      "ReadWrite"
@@ -892,7 +901,7 @@ Model {
   }
   System {
     Name		    "estados"
-    Location		    [270, 14, 1376, 778]
+    Location		    [250, 14, 1376, 778]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -906,16 +915,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "141"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "38"
-    Block {
-      BlockType		      Bias
-      Name		      "Bias"
-      SID		      "23"
-      Position		      [185, 80, 265, 150]
-      ZOrder		      -1
-      Bias		      "[-0; -zeros(3,1)]"
-      SaturateOnIntegerOverflow	off
-    }
+    SIDHighWatermark	    "43"
     Block {
       BlockType		      Bias
       Name		      "Bias1"
@@ -930,22 +930,24 @@ Model {
       SID		      "19"
       Position		      [290, 96, 420, 134]
       ZOrder		      -3
-      Gain		      "[-1/(C*inv(A-B*K)*B), -K]"
+      Gain		      "[K]"
       Multiplication	      "Matrix(K*u) (u vector)"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
-      BlockType		      Mux
-      Name		      "Mux"
-      SID		      "20"
-      Ports		      [2, 1]
-      Position		      [150, 79, 155, 146]
-      ZOrder		      -4
-      ShowName		      off
-      Inputs		      "[1 3]"
-      DisplayOption	      "bar"
+      BlockType		      Reference
+      Name		      "LTI System"
+      SID		      "39"
+      Ports		      [1, 1]
+      Position		      [95, 97, 190, 133]
+      ZOrder		      1
+      LibraryVersion	      "1.108"
+      SourceBlock	      "cstblocks/LTI System"
+      SourceType	      "LTI Block"
+      sys		      "M"
+      IC		      "[]"
     }
     Block {
       BlockType		      SubSystem
@@ -963,7 +965,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"My system"
-	Location		[270, 14, 1376, 778]
+	Location		[250, 14, 1376, 778]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1011,6 +1013,7 @@ Model {
 	    PortNumber		    2
 	    Name		    "x"
 	    RTWStorageClass	    "Auto"
+	    DataLogging		    on
 	    DataLoggingNameMode	    "SignalName"
 	  }
 	}
@@ -1123,8 +1126,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Observer"
-	Location		[270, 14, 1376, 778]
-	Open			on
+	Location		[250, 14, 1376, 778]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1194,6 +1197,7 @@ Model {
 	    PortNumber		    2
 	    Name		    "xest"
 	    RTWStorageClass	    "Auto"
+	    DataLogging		    on
 	    DataLoggingNameMode	    "SignalName"
 	  }
 	}
@@ -1291,20 +1295,35 @@ Model {
       }
     }
     Block {
-      BlockType		      Step
-      Name		      "yr"
-      SID		      "21"
-      Position		      [15, 80, 45, 110]
-      ZOrder		      -7
-      Time		      "5"
-      After		      "0+1"
-      SampleTime	      "0"
+      BlockType		      DiscretePulseGenerator
+      Name		      "Pulse\nGenerator"
+      SID		      "42"
+      Ports		      [0, 1]
+      Position		      [10, 99, 40, 131]
+      ZOrder		      4
+      PulseType		      "Time based"
+      Period		      "4"
+      PulseWidth	      "50"
       Port {
 	PortNumber		1
 	Name			"yr"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      SID		      "40"
+      Ports		      [2, 1]
+      Position		      [200, 105, 220, 125]
+      ZOrder		      2
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "|+-"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Reference
@@ -1322,8 +1341,8 @@ Model {
       }
       SourceBlock	      "simulink/Sources/Band-Limited\nWhite Noise"
       SourceType	      "Band-Limited White Noise."
-      Cov		      "1e-10"
-      Ts		      "1e-2"
+      Cov		      "Noise_step"
+      Ts		      "Sample_time"
       seed		      "[23341]"
       VectorParams1D	      on
     }
@@ -1340,7 +1359,7 @@ Model {
 	set0ParseKeys		"14"
 	set0Sigs		"My system/u:o1"
       }
-      Location		      [1, 189, 325, 767]
+      Location		      [11, 164, 335, 742]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -1349,7 +1368,6 @@ Model {
       }
       ShowDataMarkers	      off
       ShowLegends	      on
-      LegendLocations	      "0.71682     0.89403     0.18981    0.043253"
       TimeRange		      "40"
       YMin		      "-0.4"
       YMax		      "0.45"
@@ -1370,8 +1388,8 @@ Model {
 	ListType		IOSignalStrings
 	set0ParseKeys		"16"
 	set0Sigs		"My system/Sum:o1"
-	set1ParseKeys		"18,5,17"
-	set1Sigs		"My system/Demux:o1yr:o1Observer/Demux:o1"
+	set1ParseKeys		"18,17,18"
+	set1Sigs		"My system/Demux:o1Observer/Demux:o1Pulse Generator:o1"
       }
       Location		      [1, 81, 1367, 767]
       Open		      off
@@ -1404,7 +1422,7 @@ Model {
 	set0ParseKeys		"18,17"
 	set0Sigs		"My system/Demux:o2Observer/Demux:o2"
       }
-      Location		      [1, 53, 1367, 767]
+      Location		      [1, 81, 1367, 767]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -1413,7 +1431,6 @@ Model {
       }
       ShowDataMarkers	      off
       ShowLegends	      on
-      LegendLocations	      "0.92185     0.77344    0.077648     0.17945"
       TimeRange		      "40"
       YMin		      "-0.4"
       YMax		      "0.45"
@@ -1435,13 +1452,7 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Mux"
-      SrcPort		      1
-      DstBlock		      "Bias"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Bias"
+      SrcBlock		      "Sum"
       SrcPort		      1
       DstBlock		      "Gain"
       DstPort		      1
@@ -1463,17 +1474,23 @@ Model {
     Line {
       Name		      "yr"
       Labels		      [0, 0]
-      SrcBlock		      "yr"
+      SrcBlock		      "Pulse\nGenerator"
       SrcPort		      1
-      DstBlock		      "Mux"
+      DstBlock		      "LTI System"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Observer"
       SrcPort		      1
-      Points		      [-235, 0; 0, -145]
-      DstBlock		      "Mux"
+      Points		      [-110, 0]
+      DstBlock		      "Sum"
       DstPort		      2
+    }
+    Line {
+      SrcBlock		      "LTI System"
+      SrcPort		      1
+      DstBlock		      "Sum"
+      DstPort		      1
     }
   }
 }

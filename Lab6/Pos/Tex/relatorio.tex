@@ -47,10 +47,11 @@
 
 \onehalfspacing
 \section{Objetivos} 
-O objetivo desse experimento é projetar via realização em espaço de estado um controlador e um observador de estado para a planta eletrônica identificada no experimento 2\cite{bb:lab2}. 
+O objetivo desse experimento foi o projeto e análise de um controlador via realização em espaço de estado e um observador de estado para a planta eletrônica identificada no experimento 2\cite{bb:lab2}. 
 	
 \section{Projeto do Controlador}
-Consideramos a planta cuja função de transferência, representada pela equação \ref{eq:gs}, que foi obtida usando as medidas realizadas durante o experimento 2\cite{bb:lab2} para o projeto do controlador e observador em espaço de estado conforme a figura \ref{fig:contrss}, com as matrizes $A$, $B$ e $C$ indicadas em \ref{eq:mata}, \ref{eq:matb} e \ref{eq:matc}.\\
+Como nossa planta apresentou problemas durante o decorrer do experimento, apresentando respostas diferentes para o mesmo controlador de acordo com a temperatura do circuito e a posição em que esta se encontrava (provavelmente devido a componentes defeituosos e mal contatos), nós, conforme sugerido pela professora, refizemos o experimento utilizando a planta número 8.
+Essa planta teve sua função de transferência, representada pela equação \ref{eq:gs}, calculada por outro grupo usando as medidas realizadas durante o experimento 2 e nós, através do seu relatório\cite{bb:lab2gui}, recuperamos esses valores e utilizamos a mesma metodologia utilizada no pré relatório \cite{bb:prelab6} para o projeto do controlador e observador em espaço de estado conforme a figura \ref{fig:contrss}, com as matrizes $A$, $B$ e $C$ indicadas em \ref{eq:mata}, \ref{eq:matb} e \ref{eq:matc}.\\
 
 \begin{equation}
 \label{eq:gs}
@@ -63,12 +64,12 @@ G(s) = \frac{\kappa_1\kappa_2\kappa_3\kappa_4}{(s\tau_2 + 1)(s\tau_3 + 1)s}
 	\label{tab:valores}
 	\begin{tabular}{|c|c|}
 		\hline Parâmetro & Valor \\ 
-		\hline $\kappa_1$ & $-0.1005$\\ 
-		\hline $\kappa_2$ & $-2.1508$\\ 
-		\hline $\kappa_3$ & $-4.6448$\\ 
-		\hline $\kappa_4$ & $-5.6307$\\ 
-		\hline $\tau_2$ & $0.0210$\\ 
-		\hline $\tau_3$ & $0.0244$ \\ 	
+		\hline $\kappa_1$ & $-0.0995$\\ 
+		\hline $\kappa_2$ & $-2.1626$\\ 
+		\hline $\kappa_3$ & $-4.5739$\\ 
+		\hline $\kappa_4$ & $-9.1333$\\ 
+		\hline $\tau_2$ & $0.0130$\\ 
+		\hline $\tau_3$ & $0.0232$ \\ 	
 		\hline 
 	\end{tabular} 
 \end{table}
@@ -106,6 +107,7 @@ C=
 \end{bmatrix}
 \end{equation}
 
+Através dessas matrizes e das especificações do projeto determinamos as matrizes K, L e M para a implementação do sistema conforme detalhado no pré roteiro, porém alteramos os autovalores desejados para o observador de maneira a aumentar sua velocidade de resposta. Definimos que esses novos autovalores deveriam ser da ordem de 5 vezes maiores que o maior autovalor do controlador, logo escolhemos 
 \subsection{Requisitos do Sistema e Projeto}
 Seguindo o proposto no roteiro \cite{bb:roteiro} as especificações do sistema são:
 \begin{itemize}

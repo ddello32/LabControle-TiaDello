@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.47"
+    ComputedModelVersion    "1.48"
     NumModelReferences	    0
     NumTestPointedSignals   2
     TestPointedSignal {
@@ -68,7 +68,7 @@ Model {
 	Dimension		2
 	Object {
 	  $ObjectID		  5
-	  IsActive		  [0]
+	  IsActive		  [1]
 	  ViewObjType		  "SimulinkTopLevel"
 	  LoadSaveID		  "0"
 	  Extents		  [1070.0, 568.0]
@@ -77,7 +77,7 @@ Model {
 	}
 	Object {
 	  $ObjectID		  6
-	  IsActive		  [1]
+	  IsActive		  [0]
 	  ViewObjType		  "SimulinkSubsys"
 	  LoadSaveID		  "1"
 	  Extents		  [1070.0, 568.0]
@@ -94,9 +94,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "dello"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Apr 26 13:42:01 2015"
-  RTWModifiedTimeStamp	  351956517
-  ModelVersionFormat	  "1.%<AutoIncrement:47>"
+  LastModifiedDate	  "Sun May 03 12:12:34 2015"
+  RTWModifiedTimeStamp	  352555917
+  ModelVersionFormat	  "1.%<AutoIncrement:48>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -824,6 +824,21 @@ Model {
       InitialOutput	      "[]"
     }
     Block {
+      BlockType		      Saturate
+      UpperLimitSource	      "Dialog"
+      UpperLimit	      "0.5"
+      LowerLimitSource	      "Dialog"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
       BlockType		      SignalViewerScope
       Floating		      off
       ModelBased	      off
@@ -915,12 +930,12 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "141"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "43"
+    SIDHighWatermark	    "44"
     Block {
       BlockType		      Bias
       Name		      "Bias1"
       SID		      "24"
-      Position		      [440, 100, 480, 130]
+      Position		      [395, 100, 435, 130]
       ZOrder		      -2
       SaturateOnIntegerOverflow	off
     }
@@ -928,7 +943,7 @@ Model {
       BlockType		      Gain
       Name		      "Gain"
       SID		      "19"
-      Position		      [290, 96, 420, 134]
+      Position		      [245, 96, 375, 134]
       ZOrder		      -3
       Gain		      "[K]"
       Multiplication	      "Matrix(K*u) (u vector)"
@@ -1312,6 +1327,17 @@ Model {
       }
     }
     Block {
+      BlockType		      Saturate
+      Name		      "Saturation"
+      SID		      "44"
+      Ports		      [1, 1]
+      Position		      [450, 100, 480, 130]
+      ZOrder		      5
+      InputPortMap	      "u0"
+      UpperLimit	      "10"
+      LowerLimit	      "-10"
+    }
+    Block {
       BlockType		      Sum
       Name		      "Sum"
       SID		      "40"
@@ -1460,16 +1486,8 @@ Model {
     Line {
       SrcBlock		      "Bias1"
       SrcPort		      1
-      Points		      [5, 0]
-      Branch {
-	DstBlock		"My system"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, 145]
-	DstBlock		"Observer"
-	DstPort			1
-      }
+      DstBlock		      "Saturation"
+      DstPort		      1
     }
     Line {
       Name		      "yr"
@@ -1491,6 +1509,20 @@ Model {
       SrcPort		      1
       DstBlock		      "Sum"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Saturation"
+      SrcPort		      1
+      Points		      [5, 0]
+      Branch {
+	DstBlock		"My system"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 145]
+	DstBlock		"Observer"
+	DstPort			1
+      }
     }
   }
 }

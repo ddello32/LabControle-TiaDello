@@ -2,20 +2,20 @@ clear, clc
 
 %% Variaveis para o simulink
 Sample_time = 0.001;
-Noise_step = 1e-6;
+Noise_step = 1e-5;
 Noise_ramp = 0;
 
 %% modéle
-k1=-0.1005;
-k2=-2.1508;
-k3=-4.6448;
-k4=-5.6307;
-tau2=0.0210;
-tau3=0.0244;
+k1=-0.0995;
+k2=-2.1626;
+k3=-4.5739;
+k4=-9.1333;
+tau2=0.0130;
+tau3=0.0232;
 
-A = [0 1 0; 0 0 1; 0 -1/(tau2*tau3) -(tau2+tau3)/(tau2*tau3)]
+A = [0, 1, 0; 0, 0, 1; 0, -1/(tau2*tau3), -(tau2+tau3)/(tau2*tau3)]
 B = [0; 0; k1*k2*k3*k4/(tau2*tau3)]
-C = [1 0 0]
+C = [1, 0, 0]
 D = 0
 
 %% contrôleur avec x et d connus
@@ -33,20 +33,29 @@ K = place(A,B,vpc)
 syms s m1 m2 m3 tau;
 Sa = C*inv(s*eye(3) - (A - B*K))*B;
 Ma = (s/tau + 1)/(s/30 + 1)*[m1; m2; m3];
-[m1r, m2r, m3r, taur] = solve(subs(Sa*K*Ma, s, 0) == 1, subs(diff(Sa*K*Ma, s), s, 0) == 0, m1 == 1, m2 == 0.5, m1, m2, m3, tau);
+[m1r, m2r, m3r, taur] = solve(subs(Sa*K*Ma, s, 0) == 1, subs(diff(Sa*K*Ma, s), s, 0) == 0, m1 == 1, m2 == 0, m1, m2, m3, tau);
 M = (tf('s')/eval(taur) + 1)/(tf('s')/30 + 1)*[eval(m1r); eval(m2r); eval(m3r)]
 
 %% observateur
 rank([C; C*A; (C*A)*A]) % test observabilité
 %% TODO Calcular autovalores do observador
-vpo = vpc*2; % vp désirées pour Aa-La*Ca
-L = transpose(place(A',C',vpo))
+vpo = [-150, -150, -150]; % vp désirées pour Aa-La*Ca
+L = transpose(acker(A',C',vpo))
 eig(A-L*C)
 
 %% Voltar para o domínio da frequencia
 hs = minreal(K*M)
-Cus = minreal(minreal(K*minreal(inv(tf('s')*eye(3) - (A - L*C))))*B)
-Cys = minreal(minreal(K*minreal(inv(tf('s')*eye(3) - (A - L*C))))*L)
+syms s;
+Cus = eval((K*(inv(s*eye(3) - (A - L*C))))*B);
+[symNum,symDen] = numden(Cus); %Get num and den of Symbolic TF
+TFnum = sym2poly(symNum);    %Convert Symbolic num to polynomial
+TFden = sym2poly(symDen);    %Convert Symbolic den to polynomial
+Cus = minreal(tf(TFnum,TFden))
+Cys = eval((K*(inv(s*eye(3) - (A - L*C))))*L);
+[symNum,symDen] = numden(Cys); %Get num and den of Symbolic TF
+TFnum = sym2poly(symNum);    %Convert Symbolic num to polynomial
+TFden = sym2poly(symDen);    %Convert Symbolic den to polynomial
+Cys = minreal(tf(TFnum,TFden))
 Gs = tf([k1*k2*k3*k4],[tau2*tau3 tau2+tau3 1 0])
 
 %% Roda simulink
@@ -100,6 +109,10 @@ saveas(yurR,'yurR.eps','epsc')
 infoR = stepinfo(ymR(1:2000), t(1:2000), 1)
 
 %% Observador
+model = 'estados';
+load_system(model);
+sim(model);
+
 t = stateslog.get('x').Values.Time;
 x1 = stateslog.get('x').Values.Data(:,1);
 x2 = stateslog.get('x').Values.Data(:,2);

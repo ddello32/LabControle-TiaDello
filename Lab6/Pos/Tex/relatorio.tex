@@ -276,15 +276,30 @@ A tabela \ref{tab:stepinfoSIS} apresenta as características da resposta desse c
 	\end{tabular} 
 \end{table}
 Como podemos ver a resposta obtida é diferente da simulada, isso se deve provavelmente às diferenças entre a planta real e a calculada. 
+
+%TODO COMENTAR
 \section{Comparação com os outros controladores}
 
 Mesmo tratando-se de plantas diferentes, comparamos os resultados desse controlador com os projetados nos laboratórios anteriores. Como as duas plantas tem uma função de transferência bastante próxima esperamos que os resultados apresentem alguma significância. Devemos ressaltar porém que a planta $8$ tem um de seus polos nas proximidades de $-77$, enquanto a planta $6$ tinha o mesmo polo próximo a $-48$, logo a planta em que o controlador-observador foi implementado é mais rápida.
+
+Podemos ver na figura \ref{eq:yrcomp} a comparação entre esse controlador e os melhores controladores dos laboratórios anteriores: os controladores digitais proporcional com sobrelevação de 2\% e PID projetado pelo método Ziegler-Nichols do experimento 3 \cite{bb:lab3}, o controlador PID analógico do experimento 4 \cite{bb:lab4} e o controlador avanço-atraso do experimento 5 \cite{bb:lab5}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../yfrcomp}
+	\caption{Comparação entre as respostas filtradas dos controladores para onda quadrada}
+	\label{fig:yrcomp}
+\end{figure}
+
+%TODO: COMENTAR ISSO
 
 
 \begin{thebibliography}{widestlabel}
 	\bibitem{bb:roteiro}{Roteiro do experimento disponibilizado para os alunos}
 	\bibitem{bb:lab2}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 2:} Identificação de plantas eletrônicas.}
 	\bibitem{bb:lab2gui}{DAVID, Vinícius; GARCIA, Augusto; SOUZA, Guilherme. \textit{Relatório - Experimento 2:} Identificação de plantas eletrônicas.}
+	\bibitem{bb:lab3}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 3:} Controle de plantas eletrônicas utilizando um controlador PID digital.}
+	\bibitem{bb:lab4}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 4:}  Controle de plantas eletrônicas utilizando um controlador PID analógico.}
+	\bibitem{bb:lab5}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Relatório - Experimento 5:}  Controle de plantas eletrônicas utilizando um controlador atraso-avanço digital.}
 	\bibitem{bb:prelab6}{KIAN, Marcelli; OLIVEIRA, Daniel. \textit{Pré Relatório - Experimento 6:} Controle por realimentação de saída de uma planta eletrônica.}
 \end{thebibliography}
 \end{document}

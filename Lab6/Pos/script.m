@@ -146,11 +146,11 @@ saveas(obsx3,'obsx3.eps','epsc')
 %% Lab
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Carrega Dados
-a = load('SUCESSO.lvm');
+a = load('Planta_gui.lvm');
 t = a(:,1)*0.001;
-y = a(:,2);
-r = a(:,4);
-u = a(:,6);
+y = a(:,3) + 0.055;
+r = a(:,2);
+u = a(:,4) - 0.02;
 %% Isola uma unica onda
 t= t(4001:8000) - 4;
 y = y(4001:8000);
@@ -175,10 +175,10 @@ xlabel('Tempo(s)')
 ylabel('Amplitude(V)')
 legend('Esforço de Controle','Entrada')
 title('Esforço de controle do controlador-observador')
-saveas(uurSIS,'urSIS.eps','epsc')
+saveas(urSIS,'urSIS.eps','epsc')
 %% Resposta a rampa
 yrSISR = figure;
-plot(t, cumtrapz(t(1:4001),yf(1:4001)), t, r);
+plot(t, cumtrapz(t,y)+0.111, t, cumtrapz(t,r));
 xlabel('Tempo(s)')
 ylabel('Amplitude(V)')
 legend('Saída','Entrada')
@@ -186,7 +186,7 @@ title('Saída do controlador-observador para entrada rampa')
 saveas(yrSISR,'yrSISR.eps','epsc')
 %% Mostra dados da resposta
 info = stepinfo(yf(1:2000), t(1:2000), 1)
-%% Compara tudo!!
+%% Compara tudo!! 
 %'Controlador proporcional por overshoot de 2%'
 load 'OUTov2.lvm';
 yv=OUTov2(4001:8000,2);
@@ -211,12 +211,11 @@ tav = a(:,1)*0.001;
 yav = a(:,2);
 rav = a(:,4);
 uav = a(:,6);
-tav = t(4001:8000) - 4;
-yav = y(4001:8000);
-uav = u(4001:8000);
-rav = r(4001:8000);
-filtro = createFilter();
-yfav = filter(filtro, y);
+tav = tav(4001:8000) - 4;
+yav = yav(4001:8000);
+uav = uav(4001:8000);
+rav = rav(4001:8000);
+yfav = filter(filtro, yav); 
 
 yfrcomp = figure;
 plot(t, r, t, yfv, t, yfz, t, yfa, t, yfav, t, yf);

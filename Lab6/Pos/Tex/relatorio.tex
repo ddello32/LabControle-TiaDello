@@ -267,30 +267,31 @@ A tabela \ref{tab:stepinfoSIS} apresenta as características da resposta desse c
 	\caption{Características da resposta do controlador}
 	\label{tab:stepinfoSIS}
 	\begin{tabular}{|c|c|}
-		\hline Sobrelevação 				& $39.1095\%$ \\ 
-		\hline Tempo de estabilização 		& $0.5089$ [s]\\ 
-		\hline Tempo de subida				& $0.0835$ [s]\\ 
+		\hline Sobrelevação 				& $4.3705\%$ \\ 
+		\hline Tempo de estabilização 		& $0.5147$ [s]\\ 
+		\hline Tempo de subida				& $0.1569$ [s]\\ 
 		\hline Erro estacionário (degrau) 	& $0$\\ 
-		\hline Erro estacionário (rampa) 	& $0$\\ 
+		\hline Erro estacionário (rampa) 	& $0.111$\\ 
 		\hline 
 	\end{tabular} 
 \end{table}
-Como podemos ver a resposta obtida é diferente da simulada, isso se deve provavelmente às diferenças entre a planta real e a calculada. 
+A resposta obtida é diferente da simulada, isso se deve provavelmente às diferenças entre a planta real e a calculada. Notamos que o critério do erro estacionário nulo para a rampa não se cumpre. De fato, o termo derivativo em cima da resposta original do sistema que deveria ser acrescentado ao adicionar um zero através da matriz M parece não ter efeito. O overshoot de $5\%$ e o tempo de subida menor são mais indícios disto.
+Apesar disso, os outros critérios do projeto ainda são satisfeitos.
 
-%TODO COMENTAR
+%TODO COMENTAR MAIS
 \section{Comparação com os outros controladores}
 
 Mesmo tratando-se de plantas diferentes, comparamos os resultados desse controlador com os projetados nos laboratórios anteriores. Como as duas plantas tem uma função de transferência bastante próxima esperamos que os resultados apresentem alguma significância. Devemos ressaltar porém que a planta $8$ tem um de seus polos nas proximidades de $-77$, enquanto a planta $6$ tinha o mesmo polo próximo a $-48$, logo a planta em que o controlador-observador foi implementado é mais rápida.
 
-Podemos ver na figura \ref{eq:yrcomp} a comparação entre esse controlador e os melhores controladores dos laboratórios anteriores: os controladores digitais proporcional com sobrelevação de 2\% e PID projetado pelo método Ziegler-Nichols do experimento 3 \cite{bb:lab3}, o controlador PID analógico do experimento 4 \cite{bb:lab4} e o controlador avanço-atraso do experimento 5 \cite{bb:lab5}.
+Podemos ver na figura \ref{fig:yrcomp} a comparação entre esse controlador e os melhores controladores dos laboratórios anteriores: os controladores digitais proporcional com sobrelevação de 2\% e PID projetado pelo método Ziegler-Nichols do experimento 3 \cite{bb:lab3}, o controlador PID analógico do experimento 4 \cite{bb:lab4} e o controlador avanço-atraso do experimento 5 \cite{bb:lab5}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{../yfrcomp}
-	\caption{Comparação entre as respostas filtradas dos controladores para onda quadrada}
+	\includegraphics[width=0.8\linewidth]{../yrcomp}
+	\caption{Comparação entre as respostas dos controladores para onda quadrada}
 	\label{fig:yrcomp}
 \end{figure}
-
-%TODO: COMENTAR ISSO
+Notamos que esse controlador apresentou um desempenho bastante satisfatório, embora não tão bom quanto o controlador avanço-atraso. Mesmo a planta analisada sendo mais rápida que a dos laboratórios anteriores, o controlador apresentou um tempo de estabilização maior do que os outros, principalmente pois foi projetado para se estabilizar após 0.5s. Podemos ver também que a quantidade de ruído apresentada pela nova planta é muito menor, facilitando a analise dos dados e a implementação do controle. Gostaríamos de pedir para que fosse feita uma manutenção e teste de todas as plantas antes das aulas de laboratório, afim de evitar que outros grupos passem pelas dificuldades pelas quais nós passamos ao longo desse curso. 
+%TODO: COMENTAR ISSO DIREITO.
 
 
 \begin{thebibliography}{widestlabel}

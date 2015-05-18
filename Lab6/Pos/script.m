@@ -178,7 +178,7 @@ title('Esforço de controle do controlador-observador')
 saveas(urSIS,'urSIS.eps','epsc')
 %% Resposta a rampa
 yrSISR = figure;
-plot(t, cumtrapz(t,y)+0.111, t, cumtrapz(t,r));
+plot(t, cumtrapz(t,y), t, cumtrapz(t,r));
 xlabel('Tempo(s)')
 ylabel('Amplitude(V)')
 legend('Saída','Entrada')

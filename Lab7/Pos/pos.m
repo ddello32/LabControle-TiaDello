@@ -51,7 +51,7 @@ ensaiori = figure;
 plot(tr, ir);
 xlabel('Tempo(s)')
 ylabel('Corrente(A)')
-title('Corrente de ensaio com motor rotacionando')
+title('Corrente de ensaio com motor em movimento')
 saveas(ensaiori,'ensaiori.eps','epsc')
 
 a = load('Velocidade.lvm');
@@ -64,7 +64,7 @@ ensaiorv = figure;
 plot(tr, vr);
 xlabel('Tempo(s)')
 ylabel('Velocidade Angular(rad/s)')
-title('Velocidade angular para ensaio com motor rotacionando')
+title('Velocidade angular para ensaio com motor em movimento')
 saveas(ensaiorv,'ensaiorv.eps','epsc')
 
 %% Calculo dos parametros mecanicos
@@ -75,7 +75,7 @@ ensaioriF = figure;
 hplot = plot(tr(1:7725), irF(1:7725));
 xlabel('Tempo(s)')
 ylabel('Corrente(A)')
-title('Corrente filtrada com motor rotacionando')
+title('Corrente filtrada com motor em movimento')
 makedatatip(hplot, [77.25, irInf], {'i_\infty'}, {'Tempo (s): ', 'Corrente (A): '})
 saveas(ensaioriF,'ensaioriF.eps','epsc')
 
@@ -101,7 +101,7 @@ ensaiorvF = figure;
 hplot = plot(tr, vrF);
 xlabel('Tempo(s)')
 ylabel('Velocidade(rad/s)')
-title('Velocidade filtrada com motor rotacionando')
+title('Velocidade filtrada com motor em movimento')
 makedatatip(hplot, [77.25, vrInf; tm + 77.25, Vdes], {'v_\infty', '0.3679 v_\infty'}, {'Tempo (s): ', 'Velocidade (rad/s): '})
 saveas(ensaiorvF,'ensaiorvF.eps','epsc')
 
@@ -117,16 +117,26 @@ in = cat(2, cat(2, zeros(1,183), 12*ones(1,7607)), zeros(1,6152));
 sistema = ss(A, B, C, D,'InputName','V','OutputName',{'i', 'v'});
 options = stepDataOptions('InputOffset',0, 'StepAmplitude', V);
 T = lsim(sistema, in, tr);
-figure,
+simi = figure,
 plot(tr, irF, tr, T(:,1))
-figure,
+xlabel('Tempo(s)')
+ylabel('Corrente(A)')
+legend('Corrente medida filtrada', 'Corrente simulada')
+title('Comparação entre sistema simulado e sistema medido')
+saveas(simi,'simi.eps','epsc')
+simv = figure,
 plot(tr,vrF, tr, T(:,2))
+xlabel('Tempo(s)')
+ylabel('Velocidade Angular(rad/s)')
+legend('Velocidade medida filtrada', 'Velocidade simulada')
+title('Comparação entre sistema simulado e sistema medido')
+saveas(simv,'simv.eps','epsc')
 
 %% Tm = 41
-tm = 41;
-J = tm*b
+tm2 = 41;
+J2 = tm2*b
 A = [ -(R+Rs)/L -K/L 0;
-      K/J -b/J 0;
+      K/J2 -b/J2 0;
       0 1 0;]
 B = [1/L; 0; 0]
 C = [1 0 0; 0 1 0]

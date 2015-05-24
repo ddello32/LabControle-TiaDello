@@ -121,7 +121,7 @@ Com todos os parâmetros necessários calculados, substituindo os valores em \re
 G(s)=%TODO
 \end{equation}
 
-Essa planta pode ser representada na forma de estados pela equação:
+Essa planta pode ser representada na forma de estados pela equação \ref{eq:states}, substituindo os parâmetros pelos valores calculados temos a equação \ref{eq:statesval}:
 \begin{equation}
 \label{eq:states}
 \begin{Bmatrix}
@@ -164,6 +164,21 @@ V
 \end{Bmatrix}
 \end{equation}
 
+Com o auxílio do matlab, simulamos esse sistema a comparamos os resultados dessa simulação com os dados adquiridos durante o ensaio com o motor em movimento. Essa comparação pode ser vista nas figuras \ref{fig:simi} e \ref{fig:simv}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../simi}
+	\caption{Comparação entre corrente medida e simulada}
+	\label{fig:simi}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../simv}
+	\caption{Comparação entre velocidade angular medida e simulada}
+	\label{fig:simv}
+\end{figure}
+
+A primeira coisa que notamos é que a corrente simulada apresenta um comportamento bastante diferente na queda, assumindo valores negativos. Acreditamos que o motivo dessa diferença seja a ponta H ligada no sistema, que deve se utilizar de díodos para proteger suas chaves de correntes e tensões reversas geradas pelo motor
 %TODO: ANÁLISES ANÁLISES ANÁLISES ANANÁS BANANAS
 
 \begin{thebibliography}{widestlabel}

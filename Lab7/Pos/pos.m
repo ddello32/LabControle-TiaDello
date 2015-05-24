@@ -8,6 +8,12 @@ t = a(:,1)*0.01;
 i = a(:,2);
 iF = filter(filtro, i);
 
+ensaiop = figure;
+plot(t, i);
+xlabel('Tempo(s)')
+ylabel('Corrente(A)')
+title('Corrente de ensaio com motor parado')
+saveas(ensaiop,'ensaiop.eps','epsc')
 %% Parametros
 Rs = 1;
 V = 12;
@@ -18,30 +24,60 @@ R = (V - Rs*Iinf)/Iinf
 
 %% Calculo de L
 Ides = (1-exp(-1))*Iinf
-Irise = iF(453:1000);
+Irise = iF(453:1300);
 eps = 0.1;
 idx= find(abs(Irise - Ides) <= eps);
 te = (Ides - Irise(idx(2)))/diff(Irise(idx)) + idx(2);
 te = 0.01*te
+riseI = figure;
+hplot = plot(t(453:1300) - 4.53, Irise);
+xlabel('Tempo(s)')
+ylabel('Corrente(A)')
+title('Análise com pontos de relevância para corrente com motor parado')
+makedatatip(hplot, [te, Ides; 13-4.53, Iinf], {'0.63 i_\infty'; 'i_\infty'}, {'Tempo (s): ', 'Corrente (A): '})
+saveas(riseI,'riseI.eps','epsc')
+
 L = te*(R + Rs)
 
 %% Ensaio rodando
 %% Carrega Dados
 a = load('Corrente.lvm');
-tr = a(1722:end,1)*0.01 - - 17.22;
+tr = a(1722:end,1)*0.01 - 17.21;
 ir = a(1722:end,2);
 irF = filter(filtro, ir);
 irF = medfilt1(irF, 30);
 
+ensaiori = figure;
+plot(tr, ir);
+xlabel('Tempo(s)')
+ylabel('Corrente(A)')
+title('Corrente de ensaio com motor rotacionando')
+saveas(ensaiori,'ensaiori.eps','epsc')
+
 a = load('Velocidade.lvm');
-tr = a(1722:end,1)*0.01 - 17.22;
+tr = a(1722:end,1)*0.01 - 17.21;
 vr = a(1722:end,2);
 vrF = filter(filtro, vr);
 vrF = medfilt1(vrF, 30);
 
+ensaiorv = figure;
+plot(tr, vr);
+xlabel('Tempo(s)')
+ylabel('Velocidade Angular(rad/s)')
+title('Velocidade angular para ensaio com motor rotacionando')
+saveas(ensaiorv,'ensaiorv.eps','epsc')
+
 %% Calculo dos parametros mecanicos
 vrInf = mean(vrF(7300:7725))
 irInf = mean(irF(7300:7725))
+
+ensaioriF = figure;
+hplot = plot(tr(1:7725), irF(1:7725));
+xlabel('Tempo(s)')
+ylabel('Corrente(A)')
+title('Corrente filtrada com motor rotacionando')
+makedatatip(hplot, [77.25, irInf], {'i_\infty'}, {'Tempo (s): ', 'Corrente (A): '})
+saveas(ensaioriF,'ensaioriF.eps','epsc')
 
 K = (V - (R +Rs)*irInf)/vrInf
 b = K*irInf/vrInf
@@ -61,6 +97,14 @@ tm = (Vdes - Vqueda(idx(2)))/diff(Vqueda(idx)) + idx(2);
 tm = tm*0.01
 J = tm*b
 
+ensaiorvF = figure;
+hplot = plot(tr, vrF);
+xlabel('Tempo(s)')
+ylabel('Velocidade(rad/s)')
+title('Velocidade filtrada com motor rotacionando')
+makedatatip(hplot, [77.25, vrInf; tm + 77.25, Vdes], {'v_\infty', '0.3679 v_\infty'}, {'Tempo (s): ', 'Velocidade (rad/s): '})
+saveas(ensaiorvF,'ensaiorvF.eps','epsc')
+
 %% Modelo no espaço de estados
 
 A = [ -(R+Rs)/L -K/L 0;
@@ -69,12 +113,33 @@ A = [ -(R+Rs)/L -K/L 0;
 B = [1/L; 0; 0]
 C = [1 0 0; 0 1 0]
 D = [0; 0]
-%in = cat(2, cat(2, zeros(1,183), 12*ones(1,7607)), zeros(1,6152));
+in = cat(2, cat(2, zeros(1,183), 12*ones(1,7607)), zeros(1,6152));
 sistema = ss(A, B, C, D,'InputName','V','OutputName',{'i', 'v'});
 options = stepDataOptions('InputOffset',0, 'StepAmplitude', V);
-T = step(sistema, tr, options)
+T = lsim(sistema, in, tr);
 figure,
-plot(tr(1:7750)-1.86,irF(1:7750), tr(1:7750), T(1:7750,1))
+plot(tr, irF, tr, T(:,1))
 figure,
-plot(tr(1:7750)-1.86,vrF(1:7750), tr(1:7750), T(1:7750,2))
+plot(tr,vrF, tr, T(:,2))
+
+%% Tm = 41
+tm = 41;
+J = tm*b
+A = [ -(R+Rs)/L -K/L 0;
+      K/J -b/J 0;
+      0 1 0;]
+B = [1/L; 0; 0]
+C = [1 0 0; 0 1 0]
+D = [0; 0]
+in = cat(2, cat(2, zeros(1,183), 12*ones(1,7607)), zeros(1,6152));
+sistema = ss(A, B, C, D,'InputName','V','OutputName',{'i', 'v'});
+options = stepDataOptions('InputOffset',0, 'StepAmplitude', V);
+T = lsim(sistema, in, tr);
+figure,
+plot(tr, irF, tr, T(:,1))
+figure,
+plot(tr,vrF, tr, T(:,2))
+
+%% Fix eps
+!epsfixer.sh
 

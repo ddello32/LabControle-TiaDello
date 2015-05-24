@@ -79,30 +79,36 @@ i(t) = \frac{V_0}{(R+R_s)}(1-\exp^{-((R+R_s)/L)t})
 	\label{fig:rotparado}
 \end{figure}
 
-Travando o disco para impossibilitar o motor de girar seu rotor, fizemos o acionamento do módulo de potência, aguardamos a estabilização do sinal de corrente, e desligamento do sistema, obtendo as curvas de corrente e velocidade angular mostradas na figura \ref{fig:ensaiop}.
+Travando o disco para impossibilitar o motor de girar seu rotor, fizemos o acionamento do módulo de potência, aguardamos a estabilização do sinal de corrente, e desligamento do sistema, obtendo a curva de corrente mostrada na figura \ref{fig:ensaiop}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{ensaiop}
-	\caption{Corrente e velocidade angular de ensaio com motor parado}
+	\includegraphics[width=0.8\linewidth]{../ensaiop}
+	\caption{Corrente de ensaio com motor parado}
 	\label{fig:ensaiop}
 \end{figure}
 
-Para o cálculo do parâmetro $R$, utilizamos o valor indicado no roteiro\cite{bb:roteiro} $R_s\approxeq1 \Omega$, a tensão da fonte $V=12 V$ e a partir do momento em que a corrente se estabiliza em $i=%TODO
-$, calculamos seu valor conforme \ref{eq:r}.
+Filtramos o sinal e destacamos alguns pontos mais relevantes para facilitar a análise, como pode ser visto na figura \ref{fig:riseI}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../riseI}
+	\caption{Pontos de relevância para corrente filtrada com motor parado}
+	\label{fig:riseI}
+\end{figure}
+
+Para o cálculo do parâmetro $R$, utilizamos o valor indicado no roteiro\cite{bb:roteiro} $R_s\approxeq1 \Omega$, a tensão da fonte $V=12 V$ e a partir do momento em que a corrente se estabiliza em $i_\infty=0.9790$, calculamos seu valor conforme \ref{eq:r}.
 
 \begin{equation}
 \label{eq:r}
-R = \frac{V-R_sI_0}{I_0}=%TODO
+R = \frac{V-R_si_\infty}{i_\infty}=11.2578\Omega
 \end{equation}
 
-A indutância $L$, por sua vez, é calculada utilizando a constante de tempo da parte elétrica onde a corrente passa a ser $63\%$ do valor de regime, $i(\tau_e)=(1-\exp^{-1})I_0$ e portanto
-$\tau_e=%TODO
-$, de acordo com a equação \ref{eq:l}.
+A indutância $L$, por sua vez, é calculada utilizando a constante de tempo da parte elétrica onde a corrente passa a ser $63\%$ do valor de regime, $i(\tau_e)=(1-\exp^{-1})i_\infty$ e portanto
+$\tau_e=0.1184s$, de acordo com a equação \ref{eq:l}.
 
 \begin{equation}
 \label{eq:l}
-L = \tau_e(R+R_s)=%TODO
+L = \tau_e(R+R_s)=1.4516H
 \end{equation}
 
 \section{Ensaio com motor em movimento}
@@ -113,6 +119,49 @@ Com todos os parâmetros necessários calculados, substituindo os valores em \re
 \begin{equation}
 \label{eq:gs}
 G(s)=%TODO
+\end{equation}
+
+Essa planta pode ser representada na forma de estados pela equação:
+\begin{equation}
+\label{eq:states}
+\begin{Bmatrix}
+\dot{i}\\ \dot{\nu} \\ \dot{\Theta} 
+\end{Bmatrix} =
+\begin{bmatrix}
+-\frac{R+R_s}{L} & -\frac{K}{L} & 0\\
+\frac{K}{b} & -\frac{b}{J} & 0\\
+0 & 1 & 0
+\end{bmatrix}
+\begin{Bmatrix}
+i\\ \nu \\ \Theta 
+\end{Bmatrix} + 
+\begin{bmatrix}
+\frac{1}{L} & 0 & 0\\
+\end{bmatrix}
+\begin{Bmatrix}
+V 
+\end{Bmatrix}
+\end{equation}
+
+\begin{equation}
+\label{eq:statesval}
+\begin{Bmatrix}
+\dot{i}\\ \dot{\nu} \\ \dot{\Theta} 
+\end{Bmatrix} =
+\begin{bmatrix}
+-8.4441 & -0.0344 & 0\\
+15.1303 & -0.0337 & 0\\
+0 & 1 & 0
+\end{bmatrix}
+\begin{Bmatrix}
+i\\ \nu \\ \Theta 
+\end{Bmatrix} + 
+\begin{bmatrix}
+0.6889 & 0 & 0\\
+\end{bmatrix}
+\begin{Bmatrix}
+V 
+\end{Bmatrix}
 \end{equation}
 
 %TODO: ANÁLISES ANÁLISES ANÁLISES ANANÁS BANANAS

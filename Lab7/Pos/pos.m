@@ -71,6 +71,7 @@ saveas(ensaiorv,'ensaiorv.eps','epsc')
 vrInf = mean(vrF(7300:7725))
 irInf = mean(irF(7300:7725))
 
+
 ensaioriF = figure;
 hplot = plot(tr(1:7725), irF(1:7725));
 xlabel('Tempo(s)')
@@ -106,6 +107,8 @@ makedatatip(hplot, [77.25, vrInf; tm + 77.25, Vdes], {'v_\infty', '0.3679 v_\inf
 saveas(ensaiorvF,'ensaiorvF.eps','epsc')
 
 %% Modelo no espaço de estados
+s = tf('s');
+Gs = (K/J/L)/(s^2 + ((R+Rs)/L + b/J)*s + ((R+Rs)*b+K^2)/J/L)
 
 A = [ -(R+Rs)/L -K/L 0;
       K/J -b/J 0;
@@ -117,14 +120,14 @@ in = cat(2, cat(2, zeros(1,183), 12*ones(1,7607)), zeros(1,6152));
 sistema = ss(A, B, C, D,'InputName','V','OutputName',{'i', 'v'});
 options = stepDataOptions('InputOffset',0, 'StepAmplitude', V);
 T = lsim(sistema, in, tr);
-simi = figure,
+simi = figure;
 plot(tr, irF, tr, T(:,1))
 xlabel('Tempo(s)')
 ylabel('Corrente(A)')
 legend('Corrente medida filtrada', 'Corrente simulada')
 title('Comparação entre sistema simulado e sistema medido')
 saveas(simi,'simi.eps','epsc')
-simv = figure,
+simv = figure;
 plot(tr,vrF, tr, T(:,2))
 xlabel('Tempo(s)')
 ylabel('Velocidade Angular(rad/s)')
@@ -132,23 +135,29 @@ legend('Velocidade medida filtrada', 'Velocidade simulada')
 title('Comparação entre sistema simulado e sistema medido')
 saveas(simv,'simv.eps','epsc')
 
-%% Tm = 41
-tm2 = 41;
-J2 = tm2*b
-A = [ -(R+Rs)/L -K/L 0;
-      K/J2 -b/J2 0;
-      0 1 0;]
-B = [1/L; 0; 0]
-C = [1 0 0; 0 1 0]
-D = [0; 0]
-in = cat(2, cat(2, zeros(1,183), 12*ones(1,7607)), zeros(1,6152));
-sistema = ss(A, B, C, D,'InputName','V','OutputName',{'i', 'v'});
-options = stepDataOptions('InputOffset',0, 'StepAmplitude', V);
-T = lsim(sistema, in, tr);
-figure,
-plot(tr, irF, tr, T(:,1))
-figure,
-plot(tr,vrF, tr, T(:,2))
+%% Simulação com saturação
+model = 'tentativa';
+load_system(model);
+sim(model);
+
+tsim = ScopeData3.time;
+isim = ScopeData3.signals.values(:,1);
+vsim = ScopeData3.signals.values(:,2);
+
+simisat = figure;
+plot(tr, irF, tsim, isim)
+xlabel('Tempo(s)')
+ylabel('Corrente(A)')
+legend('Corrente medida filtrada', 'Corrente simulada')
+title('Comparação entre sistema simulado com saturação na corrente e sistema medido')
+saveas(simisat,'simisat.eps','epsc')
+simvsat = figure;
+plot(tr,vrF, tsim, vsim)
+xlabel('Tempo(s)')
+ylabel('Velocidade Angular(rad/s)')
+legend('Velocidade medida filtrada', 'Velocidade simulada')
+title('Comparação entre sistema simulado com saturação na corrente e sistema medido')
+saveas(simvsat,'simvsat.eps','epsc')
 
 %% Fix eps
 !epsfixer.sh

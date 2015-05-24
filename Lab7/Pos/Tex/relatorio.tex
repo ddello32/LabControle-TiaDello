@@ -61,7 +61,7 @@ O modelo matemático do problema mostrado no esquema da figura \ref{fig:esqmotor
 
 \begin{equation}
 \label{eq:eletrica}
-L\frac{di}{dt}+Ri=V-K_T\dot{\Phi}
+L\frac{di}{dt}+(R+R_s)i=V-K_T\dot{\Phi}
 \end{equation}
 \begin{equation}
 \label{eq:mecanica}
@@ -69,7 +69,7 @@ L\frac{di}{dt}+Ri=V-K_T\dot{\Phi}
 \end{equation}
 \begin{equation}
 \label{eq:gss}
-G(s)=\frac{\frac{K}{JL}}{s^2+(\frac{R}{L}+\frac{b}{J})s+\frac{(Rb+K^2)}{JL}}\\
+G(s)=\frac{\frac{K}{JL}}{s^2+(\frac{R+R_s}{L}+\frac{b}{J})s+\frac{(R+R_s)b+K^2}{JL}}\\
 \end{equation}
 
 \section{Ensaio com motor parado}
@@ -126,7 +126,7 @@ Com todos os parâmetros necessários calculados, substituindo os valores em \re
 
 \begin{equation}
 \label{eq:gs}
-G(s)=%TODO
+G(s)=\frac{10.42}{s^2 + 8.478s + 0.805}
 \end{equation}
 
 Essa planta pode ser representada na forma de estados pela equação \ref{eq:states}, substituindo os parâmetros pelos valores calculados temos a equação \ref{eq:statesval}:
@@ -186,8 +186,24 @@ Com o auxílio do matlab, simulamos esse sistema a comparamos os resultados dess
 	\label{fig:simv}
 \end{figure}
 
-A primeira coisa que notamos é que a corrente simulada apresenta um comportamento bastante diferente na queda, assumindo valores negativos. Acreditamos que o motivo dessa diferença seja a ponta H ligada no sistema, que deve se utilizar de díodos para proteger suas chaves de correntes e tensões reversas geradas pelo motor
-%TODO: ANÁLISES ANÁLISES ANÁLISES ANANÁS BANANAS
+A primeira coisa que notamos é que a corrente simulada apresenta um comportamento bastante diferente na queda, assumindo valores negativos. Acreditamos que o motivo dessa diferença seja a ponte H ligada no sistema, que deve se utilizar de diodos para proteger suas chaves de correntes e tensões reversas geradas pelo motor. Isso afeta significativamente a curva de decida da velocidade, tornando questionável a precisão do resultado obtido para $\tau_m$ e consequentemente do momento de inércia $J$.
+
+Utilizamos então o Simulink para verificar o efeito dessa limitação de corrente no sistema. Para isso, impomos a mesma limitação no sistema simulado e obtivemos as curvas mostradas nas figuras \ref{fig:simisat} e \ref{fig:simvsat}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../simisat}
+	\caption{Comparação entre corrente medida e simulada}
+	\label{fig:simisat}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../simvsat}
+	\caption{Comparação entre velocidade angular medida e simulada}
+	\label{fig:simvsat}
+\end{figure}
+
+Esse novo resultado, representa melhor o sistema e mostra que a aproximação feita para $J$ é razoável, embora ainda não ideal.
 
 \begin{thebibliography}{widestlabel}
 	\bibitem{bb:roteiro}{Roteiro do experimento disponibilizado para os alunos}

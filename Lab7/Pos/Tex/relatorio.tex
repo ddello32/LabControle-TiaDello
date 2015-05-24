@@ -50,27 +50,29 @@
 O objetivo desse experimento é realizar a identificação de parâmetros de um motor de corrente contínua com excitação independente de imãs permanentes conforme modelo proposto no roteiro\cite{bb:roteiro}. 
 	
 \section{Modelo matemático}
-O modelo matemático do problema é dividido em duas partes: elétrica e mecânica. A primeira é mostrada na equação \ref{eq:eletrica}, com fonte de tensão V. 
+O modelo matemático do problema mostrado no esquema da figura \ref{fig:esqmotor} é dividido em duas partes: elétrica e mecânica. A primeira é mostrada na equação \ref{eq:eletrica}, com fonte de tensão V. A segunda leva em consideração o torque gerado pelo motor como $T=K_Ti$, e faz $c=\frac{r_c}{r_m}$. Aplicando a transformada de Laplace e relacionando a velocidade angular da carga com a tensão na fonte, chega-se a $G(s)$ na equação \ref{eq:gss}, onde $K=cK_T$ e $J=J_c+c^2J_m$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{esqmotor}
+	\caption{Esquema do motor (elétrica e mecânica)}
+	\label{fig:esqmotor}
+\end{figure}
 
 \begin{equation}
 \label{eq:eletrica}
-BANANA%TODO
+L\frac{di}{dt}+Ri=V-K_T\dot{\Phi}
 \end{equation}
 \begin{equation}
 \label{eq:mecanica}
-BANANA%TODO
+(J_c+c^2J_m)\ddot{\theta}+b\dot{\theta}=cK_Ti
 \end{equation}
 \begin{equation}
 \label{eq:gss}
-G(s)=BANANA%TODO
+G(s)=\frac{\frac{K}{JL}}{s^2+(\frac{R}{L}+\frac{b}{J})s+\frac{(Rb+K^2)}{JL}}\\
 \end{equation}
 \section{Ensaio com motor parado}
 Conforme o roteiro\cite{bb:roteiro}, ao ligar o motor com o eixo travado não geramos força contra-eletromotriz, e com isso conseguimos medir a corrente de armadura $i$ com a adição de um resistor $R_s$ como mostrado na figura \ref{fig:rotparado}. Isso nos possibilita o cálculo dos parâmetros $R [\Omega]$ e $L [H]$ pela equação \ref{eq:rotparado}.
-
-\begin{equation}
-\label{eq:rotparado}
-i(t) = \frac{V_0}{(R+R_s)}(1-\exp^{-((R+R_s)/L)t})
-\end{equation}
 
 \begin{figure}[H]
 	\centering
@@ -78,6 +80,11 @@ i(t) = \frac{V_0}{(R+R_s)}(1-\exp^{-((R+R_s)/L)t})
 	\caption{Circuito para motor com eixo travado}
 	\label{fig:rotparado}
 \end{figure}
+
+\begin{equation}
+\label{eq:rotparado}
+i(t) = \frac{V_0}{(R+R_s)}(1-\exp^{-((R+R_s)/L)t})
+\end{equation}
 
 Travando o disco para impossibilitar o motor de girar seu rotor, fizemos o acionamento do módulo de potência, aguardamos a estabilização do sinal de corrente, e desligamento do sistema, obtendo as curvas de corrente e velocidade angular mostradas na figura \ref{fig:ensaiop}.
 

@@ -93,11 +93,10 @@ x_3  \end{array} \right]
 \frac{K}{RJ_1} 	\\
 0				\end{array} \right]
 V
-
 \end{equation}
 
 \section{Ensaio com motor parado}
-Conforme o roteiro\cite{bb:roteiro}, ao ligar o motor com o disco ligado a ele travado não geramos força contra-eletromotriz, e com isso conseguimos medir a corrente de armadura $i$ com a adição de um resistor $R_s$. Adotaremos a indutância $L=0$. Isso nos possibilita o cálculo do parâmetro $R [\Omega]$ (soma da resistência do motor e $R_s$) pela equação \ref{eq:rotparado}.
+Conforme o roteiro\cite{bb:roteiro}, ao ligar o motor com o disco ligado a ele travado não geramos força contra-eletromotriz, e com isso conseguimos medir a corrente de armadura $i$ com a adição de um resistor $R_s$. Isso nos possibilita o cálculo do parâmetro $R [\Omega]$ (soma da resistência do motor e $R_s$) pela equação \ref{eq:rotparado}. Adotaremos a indutância $L=0$.
 
 \begin{equation}
 \label{eq:rotparado}
@@ -113,20 +112,19 @@ Travando o disco para impossibilitar o motor de girar seu rotor, fizemos o acion
 	\label{fig:ensaiop}
 \end{figure}
 
-Filtramos o sinal e destacamos alguns pontos mais relevantes para facilitar a análise, como pode ser visto na figura \ref{fig:riseI}.
+Filtramos o sinal e destacamos o valor da corrente quando estável para facilitar a análise, como pode ser visto na figura \ref{fig:riseI}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../riseI}
-	\caption{Pontos de relevância para corrente filtrada com motor parado}
+	\caption{Corrente filtrada para ensaio com motor parado}
 	\label{fig:riseI}
 \end{figure}
 
-Para o cálculo do parâmetro $R$, utilizamos a tensão da fonte $V=12 V$ e a partir do momento em que a corrente se estabiliza em $i_\infty=%TODO: colocar a corrente de armadura
-A$, calculamos seu valor conforme \ref{eq:r}.
+Para o cálculo do parâmetro $R$, utilizamos a tensão da fonte $V=12 V$ e a partir do momento em que a corrente se estabiliza em $i_\infty=2.9477A$, calculamos seu valor conforme \ref{eq:r}.
 
 \begin{equation}
 \label{eq:r}
-R = \frac{V}{i_\infty}=%TODO 11.2578\Omega
+R = \frac{V}{i_\infty}=4.0709\Omega
 \end{equation}
 
 \section{Ensaio com motor em movimento}
@@ -161,12 +159,11 @@ Filtramos o sinal e destacamos alguns pontos mais relevantes para facilitar a an
 	\label{fig:ensaiorvF}
 \end{figure}
 
-Esperando a velocidade do motor se estabilizar, chegamos em $\nu_{\infty}=%TODO: Velocidade angular RP 155.3764rad/s
-$. Considerando que a esse ponto o indutor se comporte como curto circuito, encontramos a constante de torque do motor conforme a equação \ref{eq:k}
+Esperando a velocidade do motor se estabilizar, chegamos em $\nu_{\infty}=94.2793rad/s$. Considerando que a esse ponto o indutor se comporte como curto circuito, encontramos a constante de torque do motor conforme a equação \ref{eq:k}
 
 \begin{equation}
 \label{eq:k}
-K=\frac{V-Ri_{\infty}}{\nu_{\infty}}=%TODO 0.0499 V.s
+K=\frac{V-Ri_{\infty}}{\nu_{\infty}}=$0.0663 V\cdot s$
 \end{equation}
 
 

@@ -96,7 +96,7 @@ V
 
 \end{equation}
 
-\section{Ensaio com motor parado}
+\section{Ensaio com motor travado}
 Conforme o roteiro\cite{bb:roteiro}, ao ligar o motor com o disco ligado a ele travado não geramos força contra-eletromotriz, e com isso conseguimos medir a corrente de armadura $i$ com a adição de um resistor $R_s$. Adotaremos a indutância $L=0$. Isso nos possibilita o cálculo do parâmetro $R [\Omega]$ (soma da resistência do motor e $R_s$) pela equação \ref{eq:rotparado}.
 
 \begin{equation}
@@ -169,25 +169,15 @@ $. Considerando que a esse ponto o indutor se comporte como curto circuito, enco
 K=\frac{V-Ri_{\infty}}{\nu_{\infty}}=%TODO 0.0499 V.s
 \end{equation}
 
-
-
-
-
-
-
-Para encontrar o coeficiente de atrito viscoso $b$, utilizamos a equação \ref{eq:mecanica} aplicando a transformada de Laplace e utilizando o teorema do valor final, chegando à equação \ref{eq:b} para o cálculo.
+Para encontrar os coeficientes de atrito viscoso $b_1$ e $b_2$, utilizamos as equações \ref{eq:eletrica}, \ref{eq:disco1} e \ref{eq:disco2}, fazendo $\ddot{\theta}=0$, chegando à equação \ref{eq:b1b2}.
 
 \begin{equation}
-\label{eq:b}
-b=\frac{Ki_{\infty}}{\nu_{\infty}}=0.00011117 N.m.s
+\label{eq:b1b2}
+b_1+b_2=\frac{K}{R}\left(\frac{V-K\nu}{\nu}\right)
 \end{equation}
 
-Com a velocidade estabilizada, desligando a alimentação do motor, conseguimos calcular a constante de tempo $\tau_m=29.6943s$ em que $\nu(\tau_m)=0.3679\nu_{\infty}$. Depois, encontramos $J$ de acordo com a equação \ref{eq:j}.
-
-\begin{equation}
-\label{eq:j}
-J=\tau_mb=0.0033 kg.m^2
-\end{equation}
+\section{Ensaio com motor em movimento}
+%TODO
 
 \section{Resultados finais}
 Com todos os parâmetros necessários calculados, substituindo os valores em \ref{eq:gss}, obtemos a planta dada pela equação \ref{eq:gs}.
@@ -239,39 +229,6 @@ i\\ \nu \\ \Theta
 V 
 \end{Bmatrix}
 \end{equation}
-
-Com o auxílio do matlab, simulamos esse sistema a comparamos os resultados dessa simulação com os dados adquiridos durante o ensaio com o motor em movimento. Essa comparação pode ser vista nas figuras \ref{fig:simi} e \ref{fig:simv}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{../simi}
-	\caption{Comparação entre corrente medida e simulada}
-	\label{fig:simi}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{../simv}
-	\caption{Comparação entre velocidade angular medida e simulada}
-	\label{fig:simv}
-\end{figure}
-
-A primeira coisa que notamos é que a corrente simulada apresenta um comportamento bastante diferente na queda, assumindo valores negativos. Acreditamos que o motivo dessa diferença seja a ponte H ligada no sistema, que deve se utilizar de diodos para proteger suas chaves de correntes e tensões reversas geradas pelo motor. Isso afeta significativamente a curva de decida da velocidade, tornando questionável a precisão do resultado obtido para $\tau_m$ e consequentemente do momento de inércia $J$.
-
-Utilizamos então o Simulink para verificar o efeito dessa limitação de corrente no sistema. Para isso, impomos a mesma limitação no sistema simulado e obtivemos as curvas mostradas nas figuras \ref{fig:simisat} e \ref{fig:simvsat}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{../simisat}
-	\caption{Comparação entre corrente medida e simulada}
-	\label{fig:simisat}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{../simvsat}
-	\caption{Comparação entre velocidade angular medida e simulada}
-	\label{fig:simvsat}
-\end{figure}
-
-Esse novo resultado, representa melhor o sistema e mostra que a aproximação feita para $J$ é razoável, embora ainda não ideal.
 
 \begin{thebibliography}{widestlabel}
 	\bibitem{bb:roteiro}{Roteiro do experimento disponibilizado para os alunos}

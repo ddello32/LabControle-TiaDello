@@ -103,21 +103,13 @@ Conforme o roteiro\cite{bb:roteiro}, ao ligar o motor com o disco ligado a ele t
 i(t) = \frac{V}{R}
 \end{equation}
 
-Travando o disco para impossibilitar o motor de girar seu rotor, fizemos o acionamento do módulo de potência, aguardamos a estabilização do sinal de corrente, e desligamento do sistema, obtendo a curva de corrente mostrada na figura \ref{fig:ensaiop}.
+Travando o disco 1 para impossibilitar o motor de girar seu rotor, fizemos o acionamento do módulo de potência, aguardamos a estabilização do sinal de corrente, e desligamento do sistema, obtendo a curva de corrente mostrada na figura \ref{fig:ensaiop}. Destacamos o valor da corrente quando estável para facilitar a análise.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../ensaiop}
 	\caption{Corrente de ensaio com motor travado}
 	\label{fig:ensaiop}
-\end{figure}
-
-Filtramos o sinal e destacamos o valor da corrente quando estável para facilitar a análise, como pode ser visto na figura \ref{fig:riseI}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{../riseI}
-	\caption{Corrente filtrada para ensaio com motor travado}
-	\label{fig:riseI}
 \end{figure}
 
 Para o cálculo do parâmetro $R$, utilizamos a tensão da fonte $V=12 V$ e a partir do momento em que a corrente se estabiliza em $i_\infty=2.9477A$, calculamos seu valor conforme \ref{eq:r}.
@@ -128,7 +120,7 @@ R = \frac{V}{i_\infty}=4.0709\Omega
 \end{equation}
 
 \section{Ensaio com motor em movimento}
-Agora sem travar o disco, acionamos o módulo de potência e aguardamos a estabilização do sinal de corrente e velocidade, e desligamos o sistema, obtendo a curva de corrente mostrada na figura \ref{fig:ensaiori} e a curva de velocidade angular mostrada na figura \ref{fig:ensaiorv}.
+Agora sem travar os discos, acionamos o módulo de potência e aguardamos a estabilização do sinal de corrente e velocidade, e desligamos o sistema, obtendo a curva de corrente mostrada na figura \ref{fig:ensaiori} e a curva de velocidade angular do disco 1 mostrada na figura \ref{fig:ensaiorv}.
 
 \begin{figure}[H]
 	\centering
@@ -140,22 +132,22 @@ Agora sem travar o disco, acionamos o módulo de potência e aguardamos a estabi
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../ensaiorv}
-	\caption{Velocidade angular durante ensaio com motor em movimento}
+	\caption{Velocidade angular do disco 1 durante ensaio com motor em movimento}
 	\label{fig:ensaiorv}
 \end{figure}
 
-Filtramos o sinal e destacamos alguns pontos mais relevantes para facilitar a análise, como pode ser visto nas figuras \ref{fig:ensaioriF} e \ref{fig:ensaiorvF}.
+Filtramos os sinais e destacamos as medidas em regime permanente para facilitar a análise, como pode ser visto nas figuras \ref{fig:ensaioriF} e \ref{fig:ensaiorvF}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../ensaioriF}
-	\caption{Pontos de relevância para corrente filtrada com motor em movimento}
+	\caption{Corrente filtrada para ensaio com motor em movimento}
 	\label{fig:ensaioriF}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{../ensaiorvF}
-	\caption{Pontos de relevância para velocidade angular filtrada com motor em movimento}
+	\caption{Velocidade angular do disco 1 filtrada para ensaio com motor em movimento}
 	\label{fig:ensaiorvF}
 \end{figure}
 
@@ -163,68 +155,63 @@ Esperando a velocidade do motor se estabilizar, chegamos em $\nu_{\infty}=94.279
 
 \begin{equation}
 \label{eq:k}
-K=\frac{V-Ri_{\infty}}{\nu_{\infty}}=$0.0663 V\cdot s$
+K=\frac{V-Ri_{\infty}}{\nu_{\infty}}=0.0663 V\cdot s
 \end{equation}
 
-Para encontrar os coeficientes de atrito viscoso $b_1$ e $b_2$, utilizamos as equações \ref{eq:eletrica}, \ref{eq:disco1} e \ref{eq:disco2}, fazendo $\ddot{\theta}=0$, chegando à equação \ref{eq:b1b2}.
+Encontramos também a soma dos coeficientes de atrito viscoso $b_1$ e $b_2$, utilizamos as equações \ref{eq:eletrica}, \ref{eq:disco1} e \ref{eq:disco2}, fazendo $\ddot{\theta}=0$, chegando à equação \ref{eq:b1b2}.
 
 \begin{equation}
 \label{eq:b1b2}
-b_1+b_2=\frac{K}{R}\left(\frac{V-K\nu}{\nu}\right)
+b_1+b_2=\frac{K}{R}\left(\frac{V-K\nu}{\nu}\right)=9.9316\cdot10^{-4}
 \end{equation}
 
 \section{Ensaio com motor desligado}
 %TODO
 
 \section{Resultados finais}
-Com todos os parâmetros necessários calculados, substituindo os valores em \ref{eq:gss}, obtemos a planta dada pela equação \ref{eq:gs}.
+A tabela \ref{tab:par} apresenta os valores obtidos para todas os parâmetros do sistema.
+\begin{table}[H]
+	\centering
+	\caption{Parâmetros elétricos e mecânicos do sistema}
+	\label{tab:valores}
+	\begin{tabular}{|c|l|c|}
+		\hline Símbolo & Significado & Valor \\ 
+		\hline $J_1$ & Momento de inércia do disco 1 & $4.1188\cdot10^{-4}$\\ 
+		\hline $J_2$ & Momento de inércia do disco 2 & $3.7095\cdot10^{-4}$\\
+		\hline $b_1$ & Coeficiente de amortecimento do disco 1 & $4.2052\cdot10^{-5}$\\
+		\hline $b_2$ & Coeficiente de amortecimento do disco 2 & $9.5110\cdot10^{-4}$\\ 	 
+		\hline $\kappa$ & Constante elástica da mola & $0.1708$\\ 
+		\hline $V$ & Tensão no motor & $12$\\ 
+		\hline $K$ & Constante mecânica do motor & $0.0663$\\ 
+		\hline $R$ & Resistência do motor somada à resistência inserida para medida & $4.0709$ \\
+		\hline $L$ & Indutância do motor & $0$ \\ 	
+		\hline 
+	\end{tabular} 
+\end{table}
+
+Com todos os parâmetros necessários calculados, substituindo os valores em \ref{eq:ss}, obtemos a planta dada pela equação na forma de estados \ref{eq:ssval}.
 
 \begin{equation}
-\label{eq:gs}
-G(s)=\frac{10.42}{s^2 + 8.478s + 0.805}
-\end{equation}
-
-Essa planta pode ser representada na forma de estados pela equação \ref{eq:states}, substituindo os parâmetros pelos valores calculados temos a equação \ref{eq:statesval}:
-\begin{equation}
-\label{eq:states}
-\begin{Bmatrix}
-\dot{i}\\ \dot{\nu} \\ \dot{\Theta} 
-\end{Bmatrix} =
-\begin{bmatrix}
--\frac{R+R_s}{L} & -\frac{K}{L} & 0\\
-\frac{K}{b} & -\frac{b}{J} & 0\\
-0 & 1 & 0
-\end{bmatrix}
-\begin{Bmatrix}
-i\\ \nu \\ \Theta 
-\end{Bmatrix} + 
-\begin{bmatrix}
-\frac{1}{L} & 0 & 0\\
-\end{bmatrix}
-\begin{Bmatrix}
-V 
-\end{Bmatrix}
-\end{equation}
-
-\begin{equation}
-\label{eq:statesval}
-\begin{Bmatrix}
-\dot{i}\\ \dot{\nu} \\ \dot{\Theta} 
-\end{Bmatrix} =
-\begin{bmatrix}
--8.4441 & -0.0344 & 0\\
-15.1303 & -0.0337 & 0\\
-0 & 1 & 0
-\end{bmatrix}
-\begin{Bmatrix}
-i\\ \nu \\ \Theta 
-\end{Bmatrix} + 
-\begin{bmatrix}
-0.6889 & 0 & 0\\
-\end{bmatrix}
-\begin{Bmatrix}
-V 
-\end{Bmatrix}
+\label{eq:ssval}
+\left[ \begin{array}{c}
+\dot{x_1} \\
+\dot{x_2} \\
+\dot{x_3} \end{array} \right]
+=
+\left[ \begin{array}{ccc}
+0 & 1 & -1 \\
+-414.7063 & -2.7235 & 0 \\
+-460.4577 & 0 & -2.5639 \end{array} \right]
+\left[ \begin{array}{c}
+x_1 \\
+x_2 \\
+x_3  \end{array} \right]
++
+\left[ \begin{array}{c}
+0 				\\
+39.5397 	\\
+0				\end{array} \right]
+V
 \end{equation}
 
 \begin{thebibliography}{widestlabel}

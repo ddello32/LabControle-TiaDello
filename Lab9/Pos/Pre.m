@@ -126,6 +126,15 @@ kappa = wn1^2*J1
 b2 = 2*ksi2*wn2*J2
 b1 = b12 - b2
 
+%% State Space
+A = [
+0, 1, -1;
+-kappa/J1, -(b1 + K^2/R)/J1, 0;
+-kappa/J2, 0, -b2/J2
+ ]
+B = [0; K/(R*J1); 0]
+
+
 %% Fix eps
 !epsfixer.sh
 

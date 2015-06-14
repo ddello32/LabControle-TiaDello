@@ -170,18 +170,18 @@ Com o motor desligado, travamos o disco do lado sem motor, tiramos o disco do la
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{../disco2travado}
+	\includegraphics[width=\linewidth]{../disco2travado}
 	\caption{Pontos de relevância para deslocamento angular em oscilação do disco 1 (lado com motor)}
 	\label{fig:disco2travado}
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{../disco1travado}
+	\includegraphics[width=\linewidth]{../disco1travado}
 	\caption{Pontos de relevância para deslocamento angular em oscilação do disco 2 (lado sem motor)}
 	\label{fig:disco1travado}
 \end{figure}
 
-A partir dos pontos obtidos pelas curvas de oscilação, conseguimos obter os parâmetros de frequência natural e fator de amortecimento para os discos 1 e 2 utilizando o método apresentado no roteiro \ref{bb:roteiro}, sendo dados por $\omega_{n1}=20.3643rad/s$, $\xi_1= 0.0669$, $\omega_{n2}=21.4583$ e $\xi_2=0.0597$.
+A partir dos pontos obtidos pelas curvas de oscilação, conseguimos obter os parâmetros de frequência natural e fator de amortecimento para os discos 1 e 2 utilizando o método apresentado no roteiro \cite{bb:roteiro}, sendo dados por $\omega_{n1}=20.3643rad/s$, $\xi_1= 0.0669$, $\omega_{n2}=21.4583rad/s$ e $\xi_2=0.0597$.
 
 As frequências naturais e os fatores de amortecimento levam às equações \ref{eq:kappa1}, \ref{eq:kappa2}, \ref{eq:b1} e \ref{eq:b2}. 
 \begin{equation}
@@ -208,7 +208,7 @@ A tabela \ref{tab:par} apresenta os valores obtidos para todas os parâmetros do
 \begin{table}[H]
 	\centering
 	\caption{Parâmetros elétricos e mecânicos do sistema}
-	\label{tab:valores}
+	\label{tab:par}
 	\begin{tabular}{|c|l|c|}
 		\hline Símbolo & Significado & Valor \\ 
 		\hline $J_1$ & Momento de inércia do disco 1 & $4.1188\cdot10^{-4}kg\cdot m^2$\\ 
@@ -218,7 +218,7 @@ A tabela \ref{tab:par} apresenta os valores obtidos para todas os parâmetros do
 		\hline $\kappa$ & Constante elástica da mola & $0.1708N\cdot m/rad$\\ 
 		\hline $V$ & Tensão no motor & $12V$\\ 
 		\hline $K$ & Constante mecânica do motor & $0.0663 V \cdot s$\\ 
-		\hline $R$ & Resistência do motor somada à resistência inserida para medida & $4.0709\Omega$ \\
+		\hline $R$ & Resistência do motor e da medida& $4.0709\Omega$ \\
 		\hline $L$ & Indutância do motor & $0H$ \\ 	
 		\hline 
 	\end{tabular} 

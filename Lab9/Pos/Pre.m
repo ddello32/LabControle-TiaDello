@@ -130,10 +130,30 @@ b1 = b12 - b2
 A = [
 0, 1, -1;
 -kappa/J1, -(b1 + K^2/R)/J1, 0;
--kappa/J2, 0, -b2/J2
+kappa/J2, 0, -b2/J2
  ]
 B = [0; K/(R*J1); 0]
-
+C = [0 1 0]
+D = 0
+sistema = ss(A, B, C, D,'InputName','V','OutputName',{'\nu_1'});
+ %% Simulacao
+a = load('CorrenteGirandoLivre.lvm');
+tr = a(1:9488,1)*0.01;
+ir = a(1:9488,2);
+a = load('VelocidadeGirandoLivre.lvm');
+tr = a(1:9488,1)*0.01;
+vr = -1*a(1:9488,2);
+vrF = filter(filtro, vr);
+vrF = medfilt1(vrF, 30);
+in = V*(ir>0.5);
+Y = lsim(sistema, in, tr);
+simv = figure;
+plot(tr,vrF, tr, Y)
+xlabel('Tempo(s)')
+ylabel('Velocidade Angular(rad/s)')
+legend('Velocidade medida filtrada', 'Velocidade simulada do disco 1')
+title('Comparação entre sistema simulado e sistema medido')
+saveas(simv,'simv.eps','epsc')
 
 %% Fix eps
 !epsfixer.sh

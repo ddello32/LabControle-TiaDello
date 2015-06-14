@@ -47,7 +47,7 @@
 
 \onehalfspacing
 \section{Objetivos} 
-O objetivo desse experimento é realizar a identificação de parâmetros de um sistema torcional composto por dois discos interligados por uma haste flexível acionados por um motor de corrente contínua,conforme modelo proposto no roteiro\cite{bb:roteiro}. As posições angulares dos discos são medidas por dois encoders, e o motor é acionado pelo modulador de largura de pulso (PWM).
+O objetivo desse experimento é realizar a identificação de parâmetros de um sistema torcional composto por dois discos interligados por uma haste flexível acionados por um motor de corrente contínua, conforme modelo proposto no roteiro\cite{bb:roteiro}. As posições angulares dos discos são medidas por dois encoders, e o motor é acionado pelo modulador de largura de pulso (PWM).
 	
 \section{Modelo matemático}
 O modelo problema é mostrado no esquema da figura \ref{fig:esqmotor} e está descrito pelas equações \ref{eq:eletrica}, \ref{eq:disco1} e \ref{eq:disco2}. Para este experimento, iremos considerar que o indutor é carregado instantaneamente, ou seja, que $L=0$. Também adotaremos as variáveis de estado do sistema como $x_1=\theta_1-\theta_2$, $x_2=\dot{\theta_1}$ e $x_3=\dot{\theta_2}$.
@@ -166,7 +166,7 @@ b_1+b_2=\frac{K}{R}\left(\frac{V-K\nu}{\nu}\right)=9.9316\cdot10^{-4}
 \end{equation}
 
 \section{Ensaio com motor desligado}
-Com o motor desligado, travamos o disco do lado sem motor, tiramos o disco do lado com motor da posição de equilíbrio e soltamos, obtendo seu deslocamento angular conforme mostrado na figura \ref{fig:disco2travado}. Fazendo o processo equivalente para o outro disco obtivemos o resultado mostrado na figura \ref{fig:disco1travado}.
+Com o motor desligado, travamos o disco do lado sem motor, tiramos o disco do lado com motor da posição de equilíbrio e o soltamos, obtendo seu deslocamento angular conforme mostrado na figura \ref{fig:disco2travado}. Fazendo o processo equivalente para o outro disco obtivemos o resultado mostrado na figura \ref{fig:disco1travado}.
 
 \begin{figure}[H]
 	\centering
@@ -201,7 +201,7 @@ b_1=2\xi_1\omega_{n1}J_1-\frac{K^2}{R}
 b_2=2\xi_2\omega_{n2}J_2
 \end{equation}
 
-A partir da equação \ref{eq:b1b2} e a soma das equações \ref{eq:b1} e \ref{eq:b2}, encontramos o valor uma combinação de $J_1$ e $J_2$, que substituídos na soma ponderada das equações \ref{eq:kappa1} e \ref{eq:kappa2} leva ao valor $\kappa=0.1708N\cdot m/rad$. Por fim, encontramos os valores $J_14.1188\cdot10^{-4}kg\cdot m^2$ e $J_2=3.7095\cdot10^{-4}kg\cdot m^2$ substituindo o valor de $kappa$ nas equações \ref{eq:kappa1} e \ref{eq:kappa2}.
+A partir da equação \ref{eq:b1b2} e a soma das equações \ref{eq:b1} e \ref{eq:b2}, encontramos o valor uma combinação de $J_1$ e $J_2$, que substituídos na soma ponderada das equações \ref{eq:kappa1} e \ref{eq:kappa2} leva ao valor $\kappa=0.1708N\cdot m/rad$. Por fim, encontramos os valores $J_14.1188\cdot10^{-4}kg\cdot m^2$ e $J_2=3.7095\cdot10^{-4}kg\cdot m^2$ substituindo o valor de $\kappa$ nas equações \ref{eq:kappa1} e \ref{eq:kappa2}.
 
 \section{Resultados finais}
 A tabela \ref{tab:par} apresenta os valores obtidos para todas os parâmetros do sistema.

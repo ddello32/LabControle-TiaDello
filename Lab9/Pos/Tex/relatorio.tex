@@ -166,7 +166,50 @@ b_1+b_2=\frac{K}{R}\left(\frac{V-K\nu}{\nu}\right)=9.9316\cdot10^{-4}
 \end{equation}
 
 \section{Ensaio com motor desligado}
-%TODO
+Com o motor desligado, travamos o disco do lado sem motor, tiramos o disco do lado com motor da posição de equilíbrio e soltamos, obtendo seu deslocamento angular conforme mostrado na figura \ref{fig:disco2travado}. Fazendo o processo equivalente para o outro disco obtivemos o resultado mostrado na figura \ref{fig:disco1travado}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../disco2travado}
+	\caption{Pontos de relevância para deslocamento angular em oscilação do disco 1 (lado com motor)}
+	\label{fig:disco2travado}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../disco1travado}
+	\caption{Pontos de relevância para deslocamento angular em oscilação do disco 2 (lado sem motor)}
+	\label{fig:disco1travado}
+\end{figure}
+
+%TODO: Frequências naturais e fatores de amortecimento
+A partir dos pontos obtidos pelas curvas de oscilação, conseguimos obter os parâmetros de frequência natural e fator de amortecimento para os discos 1 e 2, sendo dados por $\omega_{n1}=%TODO
+$, $\xi_1=%TODO
+$, $\omega_{n2}=%TODO
+$ e $\xi_2=%TODO
+$.
+
+Conforme o roteiro\cite{bb:roteiro}, as frequências naturais e os fatores de amortecimento levam às equações \ref{eq:kappa1}, \ref{eq:kappa2}, \ref{eq:b1} e \ref{eq:b2}. 
+\begin{equation}
+\label{eq:kappa1}
+\kappa=\omega_{n1}^2J_1
+\end{equation}
+\begin{equation}
+\label{eq:kappa2}
+\kappa=\omega_{n2}^2J_2
+\end{equation}
+\begin{equation}
+\label{eq:b1}
+b_1=2\xi_1\omega_{n1}J_1-\frac{K^2}{R}
+\end{equation}
+\begin{equation}
+\label{eq:b2}
+b_2=2\xi_2\omega_{n2}J_2
+\end{equation}
+
+A partir da equação \ref{eq:b1b2} e a soma das equações \ref{eq:b1} e \ref{eq:b2}, encontramos o valor uma combinação de $J_1$ e $J_2$, que substituídos na soma ponderada das equações \ref{eq:kappa1} e \ref{eq:kappa2} leva ao valor $\kappa=%TODO
+$. Por fim, encontramos os valores $J_1=%TODO
+$ e $J_2=%TODO
+$ substituindo o valor de $kappa$ nas equações \ref{eq:kappa1} e \ref{eq:kappa2}.
 
 \section{Resultados finais}
 A tabela \ref{tab:par} apresenta os valores obtidos para todas os parâmetros do sistema.

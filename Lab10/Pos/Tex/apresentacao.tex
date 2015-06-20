@@ -1,0 +1,232 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{psfrag}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{grafcet}
+\usepackage{pdfpages}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Experimento 10]{Experimento 10: Controle de um sistema torcional com dois discos} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Daniel Dello Russo,\\ Marcelli Tiemi Kian} % Your name
+\institute[FEM] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Universidade Estadual de Campinas \\ % Your institution for the title page
+\medskip
+\textit{} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Descrição do Problema} 
+%------------------------------------------------
+\subsection{Equipamento}
+\begin{frame}
+	\frametitle{Equipamento}
+	\begin{itemize}
+		\item Sistema ELVIS
+		\item Software Labview
+		\item Sistema torcional
+		\item Modulo de potência
+	\end{itemize}
+	
+	\begin{center}
+		\resizebox{0.9\linewidth}{!}{
+			\includegraphics[height=0.4\linewidth]{elvis}
+			\quad
+			\includegraphics[height=0.4\linewidth]{ponteh}		
+			}
+	\end{center}
+
+\end{frame}
+
+\subsection{Determinação da Planta}
+\begin{frame}
+\frametitle{Determinação da Planta}
+	\begin{block}{Sistema Torcional eletro-mecânico}
+		Calculo da planta a partir de 4 ensaios.
+	\begin{center}
+		\resizebox{.9\textwidth}{!}{%
+			\includegraphics[height=0.4\linewidth]{esqmotor}
+			\quad
+			\includegraphics[height=0.4\linewidth]{motor}
+		}
+	\end{center}
+	\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+	\frametitle{Determinação da Planta}
+	\begin{block}{Ensaio com motor travado}
+		Analisar a parte elétrica do sistema
+		\begin{center}
+			\resizebox{.9\textwidth}{!}{%
+				\includegraphics[height=0.4\linewidth]{rotparado}
+				\quad
+				\includegraphics[height=0.4\linewidth]{ensaiop}
+			}
+		\end{center}
+	\end{block}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Determinação da Planta}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+	\begin{block}{Ensaio com o motor livre}
+		Analisar o comportamento do motor
+		\begin{center}
+			\resizebox{0.8\textwidth}{!}{%
+				\includegraphics[height=0.4\linewidth]{ensaiorv}
+				\quad
+				\includegraphics[height=0.4\linewidth]{ensaiori}
+			}
+		\end{center}
+	\end{block}
+	\end{column}
+	
+	\begin{column}{0.5\textwidth}
+	\begin{block}{Ensaio com o motor desligado}
+		Analisar o comportamento dos discos e da mola
+		
+		
+		\begin{center}
+			\resizebox{\textwidth}{!}{%
+				\includegraphics[height=0.5\linewidth]{disco1travado}
+				\quad
+				\includegraphics[height=0.5\linewidth]{disco2travado}
+			}
+		\end{center}
+	\end{block}
+	\end{column}
+\end{columns}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Referências}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem{roteiro4} Roteiro ``4. Maturação e Filtração" disponibilizado para os alunos
+\bibitem{roteirogeral} Roteiro ``Descrição Geral do Projeto Final" disponibilizado para os alunos
+\end{thebibliography}
+}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{Perguntas?}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

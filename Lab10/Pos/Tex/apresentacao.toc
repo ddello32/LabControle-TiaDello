@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {brazil}
+\beamer@sectionintoc {1}{Descri\IeC {\c c}\IeC {\~a}o do Problema}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Equipamento}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Determina\IeC {\c c}\IeC {\~a}o da Planta}{4}{0}{1}

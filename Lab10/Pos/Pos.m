@@ -1,39 +1,78 @@
 clear all;close all;clc;
 filtro = createFilter();
 
-%% Planta calculada no pré-relatório:
+%% Planta calculada no prï¿½-relatï¿½rio:
 G=importdata('planta.mat');
 
 %% Controlador 1
-% Simulação
-K=;                 %TODO: Pegar do sisotool
-t=0:0.01:5;
-u=ones(1,length(t));
-KGcl=feedback(K*G,1);
-U=KGcl/G;
-lsim(KGcl,t,100*u)  %saída
-hold on
-lsim(U,t,100*u)     %sinal de controle
+% Simulaï¿½ï¿½o
+s = tf('s');
+K=7718.97616400369*(s+-2.35491869113702)/s/(s+79539.8332719318);                 %TODO: Pegar do sisotool
 
-% Laboratório
-c = load('PI00970229Controle.lvm');
-v = load('PI00970229Velocidade.lvm');
+% Laboratï¿½rio
+c = load('PI0501Controle.lvm');
+v = load('PI0501Velocidade.lvm');
 t = c(:,1)*0.001;
 y = v(:,2);
 u = c(:,2);
+% u(1190:11:1430) = -u(1190:11:1430)/1.5;
+% u(1210:3:1395) = -u(1210:3:1395)/1.2;
+% u(1210:1390) = -u(1210:1390);
+% 
+% u(1190:11:1430) = -u(1190:11:1430)/1.5;
+% u(1210:3:1395) = -u(1210:3:1395)/1.2;
+% u(1210:1390) = -u(1210:1390);
+% 
+% u(3840:11:4080) = -u(3840:11:4080)/1.5;
+% u(3843:3:4050) = -u(3843:3:4050)/1.2;
+% u(3843:4050) = u(3843:4050)/1.9;
+% 
+% % u(1300:1316) = -u(1300:1316);
+% u(2966:end) = -u(2966:end);
+% u(840) = -u(840);
+% u(842) = -u(842);
+% 
+% u(984) = -u(984);
+% u(982) = -u(982);
+% u(980) = -u(980);
+% u(978) = -u(978);
+% u(976) = -u(976);
+% u(974) = -u(974);
+% u(972) = -u(972);
+% u(970) = -u(970);
+% 
+% u(4123:4301) = -u(4123:4301);
+% 
+% u(4128) = -u(4128);
+% u(4126) = -u(4126);
+% u(4124) = -u(4124);
+% u(4126) = -u(4126);
+% u(4128) = -u(4128);
+% u(4130) = -u(4130);
+% 
+% u(4304) = -u(4304);
+% u(4302) = -u(4302);
+% u(4300) = -u(4300);
+% u(4298) = -u(4298);
+% u(4296) = -u(4296);
+% u(4294) = -u(4294);
+% 
+e = zeros(1, length(t));
+e(595:2965) = 100;
+e(2966:end) = -100;
 %% Filters signal
-filtro = createFilter();
 yf = filter(filtro, y);
+uf = filter(filtro, u);
 %% Plots
 %% Sem filtro
 ysemfiltro = figure;
 plot(t, y);
 xlabel('Tempo(s)')
 ylabel('Amplitude(V)')
-legend('Saída')
-title('Saída sem filtro do controlador 1')
+legend('Saï¿½da')
+title('Saï¿½da sem filtro do controlador 1')
 saveas(ysemfiltro,'ylab1.eps','epsc')
-%% Esforço de controle
+%% Esforï¿½o de controle
 upid = figure;
 plot(t, u);
 xlabel('Tempo(s)')

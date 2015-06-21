@@ -3,3 +3,7 @@
 \beamer@sectionintoc {1}{Descri\IeC {\c c}\IeC {\~a}o do Problema}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{Equipamento}{3}{0}{1}
 \beamer@subsectionintoc {1}{2}{Determina\IeC {\c c}\IeC {\~a}o da Planta}{4}{0}{1}
+\beamer@sectionintoc {2}{Simula\IeC {\c c}\IeC {\~a}o de controle}{10}{0}{2}
+\beamer@sectionintoc {3}{Teste de controle}{10}{0}{3}
+\beamer@sectionintoc {4}{Coment\IeC {\'a}rios finais}{10}{0}{4}
+\beamer@sectionintoc {5}{Perguntas}{10}{0}{5}

@@ -31,6 +31,7 @@
 \usepackage{amssymb}
 \usepackage{grafcet}
 \usepackage{pdfpages}
+\usepackage{tabularx}
 
 \mode<presentation> {
 
@@ -151,7 +152,7 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Determinação da Planta}
 	\begin{block}{Sistema Torcional eletro-mecânico}
-		Calculo da planta a partir de 4 ensaios.
+		Cálculo da planta a partir de 4 ensaios.
 	\begin{center}
 		\resizebox{.9\textwidth}{!}{%
 			\includegraphics[height=0.4\linewidth]{esqmotor}
@@ -210,19 +211,97 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 \end{columns}
 \end{frame}
 %------------------------------------------------
-
 \begin{frame}
-\frametitle{Referências}
-\footnotesize{
-\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-\bibitem{roteiro4} Roteiro ``4. Maturação e Filtração" disponibilizado para os alunos
-\bibitem{roteirogeral} Roteiro ``Descrição Geral do Projeto Final" disponibilizado para os alunos
-\end{thebibliography}
-}
+\frametitle{Determinação da Planta}
+\begin{block}{Parâmetros}
+	\begin{table}[H]
+		\centering
+		\scalebox{0.7}{
+		\begin{tabular}{|c|c|c|}
+			\hline Parâmetro & Significado & Valor \\ 
+			\hline $J_1$ & Momento de inércia do disco 1 & $4.1188\cdot10^{-4}kg\cdot m^2$\\ 
+			\hline $J_2$ & Momento de inércia do disco 2 & $3.7095\cdot10^{-4}kg\cdot m^2$\\
+			\hline $b_1$ & Coeficiente de amortecimento do disco 1 & $4.2052\cdot10^{-5}N\cdot m\cdot s$\\
+			\hline $b_2$ & Coeficiente de amortecimento do disco 2 & $9.5110\cdot10^{-4}N\cdot m\cdot s$\\ 	 
+			\hline $\kappa$ & Constante elástica da mola & $0.1708N\cdot m/rad$\\ 
+			\hline $V$ & Tensão no motor & $12V$\\ 
+			\hline $K$ & Constante mecânica do motor & $0.0663 V \cdot s$\\ 
+			\hline $R$ & Resistência do motor e da medida& $4.0709\Omega$ \\
+			\hline $L$ & Indutância do motor & $0H$ \\ 	
+			\hline 
+		\end{tabular}
+		} 
+	\end{table}
+\end{block}
 \end{frame}
 
 %------------------------------------------------
+\begin{frame}
+\frametitle{Determinação da Planta}
+\begin{block}{Equação de Estados}
+	\begin{equation*}
+	\label{eq:ss}
+	\left[ \begin{array}{c}
+	\dot{x_1} \\
+	\dot{x_2} \\
+	\dot{x_3} \end{array} \right]
+	=
+	\left[ \begin{array}{ccc}
+	0 & 1 & -1 \\
+	-\frac{\kappa}{J_1} & -\frac{(b_1+K^2/R)}{J_1} & 0 \\
+	\frac{\kappa}{J_2} & 0 & -\frac{b_2}{J_2} \end{array} \right]
+	\left[ \begin{array}{c}
+	x_1 \\
+	x_2 \\
+	x_3  \end{array} \right]
+	+
+	\left[ \begin{array}{c}
+	0 				\\
+	\frac{K}{RJ_1} 	\\
+	0				\end{array} \right]
+	V
+	\end{equation*}
+	\begin{equation*}
+	\label{eq:ssval}
+	\left[ \begin{array}{c}
+	\dot{x_1} \\
+	\dot{x_2} \\
+	\dot{x_3} \end{array} \right]
+	=
+	\left[ \begin{array}{ccc}
+	0 & 1 & -1 \\
+	-414.71 & -2.73 & 0 \\
+	-460.46 & 0 & -2.56 \end{array} \right]
+	\left[ \begin{array}{c}
+	x_1 \\
+	x_2 \\
+	x_3  \end{array} \right]
+	+
+	\left[ \begin{array}{c}
+	0 				\\
+	39.54 	\\
+	0				\end{array} \right]
+	V
+	\end{equation*}
+\end{block}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Simulação}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{simv}
+\end{figure}
+\end{frame}
 
+%------------------------------------------------
+\section{Simulação de controle}
+%TODO Falar do controlador projetado
+\section{Teste de controle}
+%TODO Falar dos resultados
+\section{Comentários finais}
+%TODO Concluir que a Grace é escrota
+\section{Perguntas}
 \begin{frame}
 \Huge{\centerline{Perguntas?}}
 \end{frame}

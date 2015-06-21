@@ -20,8 +20,24 @@
 \headcommand {\beamer@framepages {7}{7}}
 \headcommand {\slideentry {1}{2}{5}{8/8}{Determina\IeC {\c c}\IeC {\~a}o da Planta}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\beamer@partpages {1}{8}}
-\headcommand {\beamer@subsectionpages {4}{8}}
-\headcommand {\beamer@sectionpages {3}{8}}
-\headcommand {\beamer@documentpages {8}}
-\headcommand {\def \inserttotalframenumber {8}}
+\headcommand {\slideentry {1}{2}{6}{9/9}{Determina\IeC {\c c}\IeC {\~a}o da Planta}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\sectionentry {2}{Simula\IeC {\c c}\IeC {\~a}o de controle}{10}{Simula\IeC {\c c}\IeC {\~a}o de controle}{0}}
+\headcommand {\beamer@sectionpages {3}{9}}
+\headcommand {\beamer@subsectionpages {4}{9}}
+\headcommand {\sectionentry {3}{Teste de controle}{10}{Teste de controle}{0}}
+\headcommand {\beamer@sectionpages {10}{9}}
+\headcommand {\beamer@subsectionpages {10}{9}}
+\headcommand {\sectionentry {4}{Coment\IeC {\'a}rios finais}{10}{Coment\IeC {\'a}rios finais}{0}}
+\headcommand {\beamer@sectionpages {10}{9}}
+\headcommand {\beamer@subsectionpages {10}{9}}
+\headcommand {\sectionentry {5}{Perguntas}{10}{Perguntas}{0}}
+\headcommand {\beamer@sectionpages {10}{9}}
+\headcommand {\beamer@subsectionpages {10}{9}}
+\headcommand {\slideentry {5}{0}{7}{10/10}{}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\beamer@partpages {1}{10}}
+\headcommand {\beamer@subsectionpages {10}{10}}
+\headcommand {\beamer@sectionpages {10}{10}}
+\headcommand {\beamer@documentpages {10}}
+\headcommand {\def \inserttotalframenumber {10}}

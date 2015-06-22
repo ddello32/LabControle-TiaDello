@@ -3,7 +3,7 @@
 \beamer@sectionintoc {1}{Descri\IeC {\c c}\IeC {\~a}o do Problema}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{Equipamento}{3}{0}{1}
 \beamer@subsectionintoc {1}{2}{Determina\IeC {\c c}\IeC {\~a}o da Planta}{4}{0}{1}
-\beamer@sectionintoc {2}{Simula\IeC {\c c}\IeC {\~a}o de controle}{10}{0}{2}
-\beamer@sectionintoc {3}{Teste de controle}{12}{0}{3}
-\beamer@sectionintoc {4}{Coment\IeC {\'a}rios finais}{12}{0}{4}
-\beamer@sectionintoc {5}{Perguntas}{12}{0}{5}
+\beamer@subsectionintoc {1}{3}{Controlador PI}{10}{0}{1}
+\beamer@sectionintoc {2}{Teste de controle}{12}{0}{2}
+\beamer@sectionintoc {3}{Coment\IeC {\'a}rios finais}{14}{0}{3}
+\beamer@sectionintoc {4}{Perguntas}{14}{0}{4}

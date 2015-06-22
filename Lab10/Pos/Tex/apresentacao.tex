@@ -295,21 +295,7 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 \end{frame}
 
 %------------------------------------------------
-\section{Simulação de controle}
-\begin{frame}
-	\frametitle{Simulação de controle}
-	\begin{block}{Controlador PI}
-		\begin{center}
-		\scalebox{0.7}{ %
-			$K(s) = \kappa_p + \frac{\kappa_i}{s} = 0.097 + \frac{0.229}{s}$
-		}
-		\end{center}
-		\begin{center}
-			\includegraphics[height=0.40\linewidth]{../sisotool}
-		\end{center}
-	\end{block}
-\end{frame}
-%------------------------------------------------
+\subsection{Controlador PI}
 \begin{frame}
 	\frametitle{Controlador PI}
 	Modelo da planta pouco confiável, robustez desejada.
@@ -320,8 +306,40 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 		\includegraphics[height=0.4\linewidth]{../sisotool}
 	\end{figure}
 \end{frame}
+%------------------------------------------------
+\begin{frame}
+	\frametitle{Simulação}
+	\begin{figure}
+		\includegraphics[height=0.6\linewidth]{../bla}
+	\end{figure}
+\end{frame}
+%------------------------------------------------
 \section{Teste de controle}
-%TODO Falar dos resultados
+\begin{frame}
+	\frametitle{Teste de controle}
+		\begin{center}
+			\resizebox{\textwidth}{!}{%
+				\includegraphics[height=0.6\linewidth]{../blamedido}
+				\quad
+				\includegraphics[height=0.6\linewidth]{../blaesforco}
+			}
+		\end{center}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+	\frametitle{Teste de controle}
+	\begin{block}{Novo controlador PI}
+		\begin{center}
+			\scalebox{0.7}{ %
+				$K(s) = \kappa_p + \frac{\kappa_i}{s} = 0.1 + \frac{0.1}{s}$
+			}
+			\begin{center}
+				\includegraphics[width=0.4\linewidth]{../bla0101}
+			\end{center}
+		\end{center}
+
+	\end{block}
+\end{frame}
 \section{Comentários finais}
 %TODO Concluir que a Grace é escrota
 \section{Perguntas}

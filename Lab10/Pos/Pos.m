@@ -75,7 +75,7 @@ yaxis([-12, 12])
 xlabel('Tempo(s)')
 ylabel('Amplitude(V)')
 title('Esforço de controle do sistema com controlador PI projetado')
-saveas(epsa,'blaesforco.eps','epsc')
+saveas(epsb,'blaesforco.eps','epsc')
 %% Filters signal
 yf = filter(filtro, y);
 uf = filter(filtro, u);

@@ -6,5 +6,4 @@
 \beamer@sectionintoc {2}{Projeto e Resultados}{10}{0}{2}
 \beamer@subsectionintoc {2}{1}{Controlador PI}{10}{0}{2}
 \beamer@subsectionintoc {2}{2}{Novo Controlador PI}{13}{0}{2}
-\beamer@sectionintoc {3}{Coment\IeC {\'a}rios finais}{15}{0}{3}
-\beamer@sectionintoc {4}{Perguntas}{15}{0}{4}
+\beamer@sectionintoc {3}{Perguntas}{15}{0}{3}

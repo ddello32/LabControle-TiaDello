@@ -295,6 +295,7 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 \end{frame}
 
 %------------------------------------------------
+\section{Projeto e Resultados}
 \subsection{Controlador PI}
 \begin{frame}
 	\frametitle{Controlador PI}
@@ -314,7 +315,6 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 	\end{figure}
 \end{frame}
 %------------------------------------------------
-\section{Teste de controle}
 \begin{frame}
 	\frametitle{Teste de controle}
 		\begin{center}
@@ -326,19 +326,34 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 		\end{center}
 \end{frame}
 %------------------------------------------------
+\subsection{Novo Controlador PI}
 \begin{frame}
-	\frametitle{Teste de controle}
+	\frametitle{Projeto e Simulações}
 	\begin{block}{Novo controlador PI}
 		\begin{center}
-			\scalebox{0.7}{ %
-				$K(s) = \kappa_p + \frac{\kappa_i}{s} = 0.1 + \frac{0.1}{s}$
+			\scalebox{1}{ %
+				$K(s) = \kappa_p + \frac{\kappa_i}{s} = 0.5 + \frac{0.1}{s}$
 			}
 			\begin{center}
-				\includegraphics[width=0.4\linewidth]{../bla0101}
+			\resizebox{\textwidth}{!}{%
+			\includegraphics[height=0.7\linewidth]{../rbla0101}
+			\quad
+			\includegraphics[height=0.7\linewidth]{../bla0101}
+			}
 			\end{center}
 		\end{center}
-
 	\end{block}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+	\frametitle{Teste de controle}
+	\begin{center}
+		\resizebox{\textwidth}{!}{%
+			\includegraphics[height=0.6\linewidth]{../bla0501medido}
+			\quad
+			\includegraphics[height=0.6\linewidth]{../bla0501esforco}
+		}
+	\end{center}
 \end{frame}
 \section{Comentários finais}
 %TODO Concluir que a Grace é escrota

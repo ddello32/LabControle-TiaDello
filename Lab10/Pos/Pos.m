@@ -12,7 +12,7 @@ K=7718.97616400369*(s+-2.35491869113702)/s/(s+79539.8332719318);                
 % Laborat�rio
 c = load('PI0501Controle.lvm');
 v = load('PI0501Velocidade.lvm');
-t = c(:,1)*0.001;
+t = c(:,1)*0.01;
 y = v(:,2);
 u = c(:,2);
 % u(1190:11:1430) = -u(1190:11:1430)/1.5;
@@ -58,26 +58,32 @@ u = c(:,2);
 % u(4294) = -u(4294);
 % 
 e = zeros(1, length(t));
-e(595:2965) = 100;
-e(2966:end) = -100;
-
+e(246:7091) = 100;
+e(7092:end) = -100;
+%%
+for i = 246:17:length(u)
+    if(abs(u(i)) < 5)
+        u(i) = -u(i);
+    end
+end
 %% Plots
 epsa = figure;
 plot(t,r,t,v)
 xlabel('Tempo(s)')
 ylabel('Velcidade(rad/s)')
-title('Saída do sistema com controlador PI projetado')
+title('Saída do sistema com controlador PI aprimorado')
 legend('Referencia', 'Velocidade medida')
-saveas(epsa,'blamedido.eps','epsc')
+saveas(epsa,'bla0505medido.eps','epsc')
+%% 
 epsb = figure;
 plot(t,u/10)
 yaxis([-12, 12])
 xlabel('Tempo(s)')
 ylabel('Amplitude(V)')
-title('Esforço de controle do sistema com controlador PI projetado')
+title('Esforço de controle do sistema com controlador PI aprimorado')
 saveas(epsb,'blaesforco.eps','epsc')
 %% Filters signal
-yf = filter(filtro, y);
+yf = filter(filtro, v);
 uf = filter(filtro, u);
 %% Plots
 %% Sem filtro

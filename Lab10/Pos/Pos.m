@@ -60,6 +60,22 @@ u = c(:,2);
 e = zeros(1, length(t));
 e(595:2965) = 100;
 e(2966:end) = -100;
+
+%% Plots
+epsa = figure;
+plot(t,r,t,v)
+xlabel('Tempo(s)')
+ylabel('Velcidade(rad/s)')
+title('Saída do sistema com controlador PI projetado')
+legend('Referencia', 'Velocidade medida')
+saveas(epsa,'blamedido.eps','epsc')
+epsb = figure;
+plot(t,u/10)
+yaxis([-12, 12])
+xlabel('Tempo(s)')
+ylabel('Amplitude(V)')
+title('Esforço de controle do sistema com controlador PI projetado')
+saveas(epsa,'blaesforco.eps','epsc')
 %% Filters signal
 yf = filter(filtro, y);
 uf = filter(filtro, u);

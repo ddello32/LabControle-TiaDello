@@ -296,7 +296,30 @@ Universidade Estadual de Campinas \\ % Your institution for the title page
 
 %------------------------------------------------
 \section{Simulação de controle}
-%TODO Falar do controlador projetado
+\begin{frame}
+	\frametitle{Simulação de controle}
+	\begin{block}{Controlador PI}
+		\begin{center}
+		\scalebox{0.7}{ %
+			$K(s) = \kappa_p + \frac{\kappa_i}{s} = 0.097 + \frac{0.229}{s}$
+		}
+		\end{center}
+		\begin{center}
+			\includegraphics[height=0.40\linewidth]{../sisotool}
+		\end{center}
+	\end{block}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+	\frametitle{Controlador PI}
+	Modelo da planta pouco confiável, robustez desejada.
+	\begin{equation*}
+	K(s) = \kappa_p + \frac{\kappa_i}{s} = 0.097 + \frac{0.229}{s}
+	\end{equation*}
+	\begin{figure}
+		\includegraphics[height=0.4\linewidth]{../sisotool}
+	\end{figure}
+\end{frame}
 \section{Teste de controle}
 %TODO Falar dos resultados
 \section{Comentários finais}
